@@ -6,17 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".WelcomeActivity">
 
-
-    <!-- Congratulations -->
-
-    <!-- BG -->
-
-
-    <!-- Text -->
-
-    <!-- Congratulations! -->
-
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/congratulat"
         android:layout_width="fill_parent"

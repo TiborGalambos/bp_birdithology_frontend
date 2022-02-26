@@ -15,15 +15,18 @@ class LoginActivity : AppCompatActivity() {
 
         signup_text_button.setOnClickListener {
             val intent = Intent(applicationContext, SignupActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
         val cancel_button = findViewById(R.id.left_top_text) as TextView
 
         cancel_button.setOnClickListener {
             val intent = Intent(applicationContext, WelcomeActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
         }
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 }

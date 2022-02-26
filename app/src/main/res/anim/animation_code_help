@@ -1,0 +1,5 @@
+
+// code to put after startActivity(intent) to override default animations
+
+overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left) //forward
+overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // back
