@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<set xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--code to put after startActivity(intent) to override default animations-->
+
+    <!--overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left) //forwards-->
+    <!--overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards-->
+
+</set>

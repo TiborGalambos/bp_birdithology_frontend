@@ -22,11 +22,7 @@ class LoginActivity : AppCompatActivity() {
         cancel_button.setOnClickListener {
             val intent = Intent(applicationContext, WelcomeActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
         }
-    }
-
-    override fun finish() {
-        super.finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 }

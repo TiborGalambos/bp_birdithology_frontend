@@ -25,17 +25,9 @@ class SignupActivity : AppCompatActivity() {
         cancel_button.setOnClickListener {
             val intent = Intent(applicationContext, WelcomeActivity::class.java)
 
-            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left) //forward
             startActivity(intent)
-            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // back
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
         }
-
-
-    }
-
-    override fun finish() {
-        super.finish()
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right)
     }
 
 }

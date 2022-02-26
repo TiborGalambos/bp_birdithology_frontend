@@ -20,7 +20,6 @@ class WelcomeActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, LoginActivity::class.java)
 //            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK   // clear all activities started before
             startActivity(intent)
-//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
 
@@ -28,8 +27,8 @@ class WelcomeActivity : AppCompatActivity() {
 
         singup_text_button.setOnClickListener {
             val intent = Intent(applicationContext, SignupActivity::class.java)
+//            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK   // clear all activities started before
             startActivity(intent)
-//            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
         }
 
     }
