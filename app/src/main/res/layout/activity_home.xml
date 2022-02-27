@@ -157,7 +157,16 @@
         app:layout_constraintStart_toStartOf="@+id/guideline9"
         tools:ignore="MissingConstraints" />
 
-
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/floatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        app:backgroundTint="@color/nature_green"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/guideline10" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

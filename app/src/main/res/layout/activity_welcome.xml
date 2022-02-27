@@ -17,7 +17,7 @@
         tools:layout_editor_absoluteY="16dp">
 
         <View
-            android:id="@+id/bg"
+            android:id="@+id/add_photo_button"
             android:layout_width="343dp"
             android:layout_height="363dp"
 
