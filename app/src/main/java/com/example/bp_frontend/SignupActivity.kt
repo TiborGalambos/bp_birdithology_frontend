@@ -3,6 +3,7 @@ package com.example.bp_frontend
 import android.app.ActivityOptions
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.TextView
 
@@ -28,6 +29,16 @@ class SignupActivity : AppCompatActivity() {
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
         }
+
+
+        val button_signup = findViewById(R.id.button_signup) as View
+
+        button_signup.setOnClickListener {
+            val intent = Intent(applicationContext, LoginActivity::class.java)
+            startActivity(intent)
+        }
+
+
     }
 
 }

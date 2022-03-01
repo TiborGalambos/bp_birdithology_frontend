@@ -4,6 +4,7 @@ import android.app.ActivityOptions
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.TextView
 
 class LoginActivity : AppCompatActivity() {
@@ -23,6 +24,13 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, WelcomeActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+        }
+
+        val button_login = findViewById(R.id.button_login) as View
+
+        button_login.setOnClickListener {
+            val intent = Intent(applicationContext, HomeActivity::class.java)
+            startActivity(intent)
         }
     }
 }

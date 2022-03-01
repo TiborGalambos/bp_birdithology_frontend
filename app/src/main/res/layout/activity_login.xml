@@ -155,7 +155,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <RelativeLayout
-        android:id="@+id/button_signup"
+        android:id="@+id/button_login"
         android:layout_width="343dp"
         android:layout_height="51dp"
         android:layout_alignParentLeft="true"
@@ -169,7 +169,7 @@
         />
 
     <TextView
-        android:id="@+id/sign_up"
+        android:id="@+id/login_text"
         android:layout_width="61dp"
         android:layout_height="20dp"
         android:layout_alignParentLeft="true"
@@ -177,12 +177,12 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal|top"
-        android:text="@string/sign_up"
+        android:text="@string/log_in"
         android:textAppearance="@style/sign_up"
-        app:layout_constraintBottom_toBottomOf="@+id/button_signup"
-        app:layout_constraintEnd_toEndOf="@+id/button_signup"
-        app:layout_constraintStart_toStartOf="@+id/button_signup"
-        app:layout_constraintTop_toTopOf="@+id/button_signup" />
+        app:layout_constraintBottom_toBottomOf="@+id/button_login"
+        app:layout_constraintEnd_toEndOf="@+id/button_login"
+        app:layout_constraintStart_toStartOf="@+id/button_login"
+        app:layout_constraintTop_toTopOf="@+id/button_login" />
 
 
     <androidx.constraintlayout.widget.Guideline
