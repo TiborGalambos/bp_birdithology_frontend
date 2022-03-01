@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.bp_frontend" >
+    package="com.example.bp_frontend">
 
     <application
         android:allowBackup="true"
@@ -8,7 +8,10 @@
         android:label="Birdithology"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.BP_frontend" >
+        android:theme="@style/Theme.BP_frontend">
+        <activity
+            android:name=".NewSimpleObservationActivity"
+            android:exported="false" />
         <activity
             android:name=".NewObservationActivity"
             android:exported="false" />
@@ -25,7 +28,7 @@
             android:name=".WelcomeActivity"
             android:exported="true"
             android:label="Birdithology"
-            android:theme="@style/Theme.BP_frontend.NoActionBar" >
+            android:theme="@style/Theme.BP_frontend.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

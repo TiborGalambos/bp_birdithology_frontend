@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewObservationActivity">
+    tools:context=".NewSimpleObservationActivity">
 
 
     <TextView
@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="New\n Observation"
+        android:text="New Simple\n Observation"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
@@ -80,17 +80,17 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="100dp" />
 
-        <TextView
-            android:id="@+id/right_top_text"
-            style="@style/top_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:text="Simple Form"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
-            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+<!--    <TextView-->
+<!--        android:id="@+id/right_top_text"-->
+<!--        style="@style/top_text"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="0dp"-->
+<!--        android:text="Simple Form"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/guideline3"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/guideline10"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -98,7 +98,7 @@
         android:layout_width="341dp"
         android:layout_height="50dp"
         android:layout_marginTop="25dp"
-        android:hint="Species"
+        android:hint="Size"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -129,7 +129,7 @@
         android:layout_width="341dp"
         android:layout_height="50dp"
         android:layout_marginTop="25dp"
-        android:hint="How many"
+        android:hint="Color"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -159,7 +159,7 @@
         android:layout_width="341dp"
         android:layout_height="50dp"
         android:layout_marginTop="25dp"
-        android:hint="Time"
+        android:hint="Beak"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -189,7 +189,7 @@
         android:layout_width="341dp"
         android:layout_height="50dp"
         android:layout_marginTop="25dp"
-        android:hint="Location"
+        android:hint="How many"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -202,6 +202,66 @@
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toBottomOf="@+id/input3">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg"
+            android:outlineProvider="none">
+
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input5"
+        android:layout_width="341dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:hint="Time"
+        android:outlineAmbientShadowColor="@color/black"
+        android:scrollbarSize="40dp"
+        app:boxBackgroundColor="#FFF"
+        app:boxStrokeColor="#FFF"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:counterEnabled="false"
+        app:counterMaxLength="32"
+        app:counterOverflowTextColor="@color/teal_200"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/input4">
+
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg"
+            android:outlineProvider="none">
+
+        </com.google.android.material.textfield.TextInputEditText>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/input6"
+        android:layout_width="341dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="25dp"
+        android:hint="Location"
+        android:outlineAmbientShadowColor="@color/black"
+        android:scrollbarSize="40dp"
+        app:boxBackgroundColor="#FFF"
+        app:boxStrokeColor="#FFF"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp"
+        app:counterEnabled="false"
+        app:counterMaxLength="32"
+        app:counterOverflowTextColor="@color/teal_200"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toBottomOf="@+id/input5">
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -256,10 +316,10 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/add_photo_button"
         app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@+id/button_signup"
+        app:layout_constraintBottom_toTopOf="@+id/get_location"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/input4"
+        app:layout_constraintTop_toBottomOf="@+id/input6"
         tools:ignore="MissingConstraints" />
 
 
@@ -296,7 +356,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/get_location_text"
+        android:id="@+id/add_photo_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
