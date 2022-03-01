@@ -10,9 +10,9 @@ class NewSimpleObservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_simple_observation)
 
-        val right_top_text = findViewById(R.id.right_top_text) as TextView
+        val left_top_text = findViewById(R.id.left_top_text) as TextView
 
-        right_top_text.setOnClickListener {
+        left_top_text.setOnClickListener {
             val intent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(intent)
         }

@@ -15,8 +15,7 @@ class HomeActivity : AppCompatActivity() {
 
 
 //        floatingActionButton
-        val floatingActionButton = findViewById(R.id.floatingActionButton) as FloatingActionButton
-
+        val floatingActionButton = findViewById(R.id.floatingActionButton) as com.google.android.material.floatingactionbutton.FloatingActionButton
         floatingActionButton.setOnClickListener {
             val intent = Intent(applicationContext, NewObservationActivity::class.java)
             startActivity(intent)

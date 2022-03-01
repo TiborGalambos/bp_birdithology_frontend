@@ -11,7 +11,7 @@ class NewObservationActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_observation)
 
-        val left_top_text = findViewById(R.id.floatingActionButton) as TextView
+        val left_top_text = findViewById(R.id.left_top_text) as TextView
 
         left_top_text.setOnClickListener {
             val intent = Intent(applicationContext, HomeActivity::class.java)

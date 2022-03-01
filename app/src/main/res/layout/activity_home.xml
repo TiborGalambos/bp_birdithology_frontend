@@ -131,32 +131,6 @@
 
 
 
-    <RelativeLayout
-        android:id="@+id/feed"
-        android:layout_width="343dp"
-        android:layout_height="77dp"
-        android:background="@drawable/home_feed_block"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/search_Bar" />
-
-
-
-    <!-- Divider Line -->
-    <View
-        android:id="@+id/divider_lin"
-        android:layout_height="1dp"
-        android:layout_width="0dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/divider_line"
-        app:layout_constraintBottom_toBottomOf="@+id/feed"
-        app:layout_constraintEnd_toEndOf="@+id/feed"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        tools:ignore="MissingConstraints" />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
