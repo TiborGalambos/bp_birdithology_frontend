@@ -98,29 +98,36 @@
         android:layout_width="341dp"
         android:layout_height="50dp"
         android:layout_marginTop="25dp"
-        android:hint="Species"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
         app:boxStrokeColor="#FFF"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        app:counterEnabled="false"
-        app:counterMaxLength="32"
-        app:counterOverflowTextColor="@color/teal_200"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/guideline3">
+        app:layout_constraintTop_toBottomOf="@+id/guideline3"
+        >
+
 
         <AutoCompleteTextView
             android:id="@+id/dropdown_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:inputType="none"
             android:background="@drawable/bg"
-            android:text=""/>
+            android:textSize="16sp"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="15dp"
+            android:hint="Species"
+            android:textColorHint="@color/nature_green"
 
-<!--        <com.google.android.material.textfield.TextInputEditText-->
+            >
+
+        </AutoCompleteTextView>
+
+
+        <!--        <com.google.android.material.textfield.TextInputEditText-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="match_parent"-->
 <!--            android:background="@drawable/bg"-->
