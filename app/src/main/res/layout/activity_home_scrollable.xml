@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -54,16 +54,16 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="16dp" />
 
-<!--    <TextView-->
-<!--        android:id="@+id/left_top_text"-->
-<!--        style="@style/top_text"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="@string/cancel"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/guideline3"-->
-<!--        app:layout_constraintEnd_toStartOf="@+id/guideline9"-->
-<!--        app:layout_constraintStart_toStartOf="@+id/guideline7"-->
-<!--        app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
+    <!--    <TextView-->
+    <!--        android:id="@+id/left_top_text"-->
+    <!--        style="@style/top_text"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:text="@string/cancel"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/guideline3"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/guideline9"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/guideline7"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline9"
@@ -98,59 +98,57 @@
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/search_Bar"
-        android:layout_width="341dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
-        android:hint="Search"
-        android:outlineAmbientShadowColor="@color/black"
-        android:scrollbarSize="40dp"
-        app:boxBackgroundColor="#FFF"
-        app:boxStrokeColor="#FFF"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:counterEnabled="false"
-        app:counterMaxLength="32"
-        app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/guideline3">
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/search_Bar"-->
+<!--        android:layout_width="341dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="25dp"-->
+<!--        android:hint="Search"-->
+<!--        android:outlineAmbientShadowColor="@color/black"-->
+<!--        android:scrollbarSize="40dp"-->
+<!--        app:boxBackgroundColor="#FFF"-->
+<!--        app:boxStrokeColor="#FFF"-->
+<!--        app:boxStrokeWidth="0dp"-->
+<!--        app:boxStrokeWidthFocused="0dp"-->
+<!--        app:counterEnabled="false"-->
+<!--        app:counterMaxLength="32"-->
+<!--        app:counterOverflowTextColor="@color/teal_200"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/guideline7"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/guideline3">-->
 
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/search_bg"
-            android:outlineProvider="none">
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@drawable/search_bg"-->
+<!--            android:outlineProvider="none">-->
 
-        </com.google.android.material.textfield.TextInputEditText>
+<!--        </com.google.android.material.textfield.TextInputEditText>-->
 
 
-    </com.google.android.material.textfield.TextInputLayout>
-
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/floatingActionButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="155dp"
         android:clickable="true"
-        app:backgroundTint="@color/nature_green"
         android:src="@android:drawable/ic_input_add"
+        app:backgroundTint="@color/nature_green"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline10" />
 
     <ListView
-        android:id="@+id/list_id"
-        android:layout_width="391dp"
-        android:layout_height="585dp"
-        android:layout_marginTop="1dp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintTop_toBottomOf="@+id/search_Bar"
-        tools:layout_editor_absoluteX="1dp"
-        tools:ignore="MissingConstraints" />
+        android:id="@+id/myList"
+        android:layout_width="match_parent"
+        android:layout_height="612dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="138dp" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+</RelativeLayout>

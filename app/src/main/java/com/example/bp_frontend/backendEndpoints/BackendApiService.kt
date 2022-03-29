@@ -1,26 +1,29 @@
-package com.example.bp_frontend.ebirdEndpoint
+package com.example.bp_frontend.backendEndpoints
 
-import com.example.myapplication.models.EbirdBirdModel
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable
+import com.example.bp_frontend.dataItems.RecentObservationsDataItem
 import okhttp3.MultipartBody
-import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.http.*
 
 
-interface ApiService {
-
-    @GET("ref/taxonomy/ebird?locale=sk&fmt=json&species=ostric2")
-    fun getBirdNames():Call<EbirdBirdModel>
+// Here goes the FIELDS and HEADERS that are meant to SEND
 
 
-//    @FormUrlEncoded
-//    @POST("register/")
-//    fun register(
-//        @Field("username") username:String,
-//        @Field("email") email:String,
-//        @Field("password") password: String
-//    ):Call<RegisterResponse>
+interface BackendApiService {
+
+    @FormUrlEncoded
+    @POST("login/")
+    fun login(
+        @Field("username") username:String,
+        @Field("password") password: String
+    ):Call<LoginResponse>
+
+    @FormUrlEncoded
+    @POST("register/")
+    fun register(
+        @Field("username") username:String,
+        @Field("password") password: String
+    ):Call<RegisterResponse>
 
 
 //    @GET("api/user/")
@@ -28,9 +31,44 @@ interface ApiService {
 //    ):Call<User>
 
 
-//    @POST("user/logout/")
-//    fun logOut(@Header("Authorization") token: String
-//    ):Call<User>
+    @POST("logout/")
+    fun logOut(@Header("Authorization") token: String
+    ):Call<LoginResponse>
+
+    @Multipart
+    @POST("observation/normal/")
+    fun newNormalObservation(
+        @Header("Authorization") token: String,
+
+        @Part("bird_name") bird_name:String,
+        @Part("bird_count") bird_count: Int,
+
+        @Part("obs_x_coords") obs_x_coords: Float,
+        @Part("obs_x_coords") obs_y_coords: Float,
+
+        @Part bird_photo: MultipartBody.Part
+    ):Call<NormalObservationResponse>
+
+
+    @Multipart
+    @POST("observation/normal/")
+    fun newNormalObservationWithoutMedia(
+        @Header("Authorization") token: String,
+
+        @Part("bird_name") bird_name:String,
+        @Part("bird_count") bird_count: Int,
+
+        @Part("obs_x_coords") obs_x_coords: Float,
+        @Part("obs_x_coords") obs_y_coords: Float,
+
+    ):Call<NormalObservationResponse>
+
+
+    @GET("observation/recent/")
+    fun fetchNormalObservations(
+        @Header("Authorization") token: String,
+
+        ):Call<RecentObservationsDataItem>
 
 
 //    @Multipart

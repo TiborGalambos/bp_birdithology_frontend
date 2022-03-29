@@ -60,6 +60,7 @@
         style="@style/top_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
         android:text="@string/cancel"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
@@ -80,24 +81,36 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="100dp" />
 
-        <TextView
-            android:id="@+id/right_top_text"
-            style="@style/top_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="0dp"
-            android:text="Simple Form"
-            app:layout_constraintBottom_toTopOf="@+id/guideline3"
-            app:layout_constraintEnd_toStartOf="@+id/guideline8"
-            app:layout_constraintStart_toStartOf="@+id/guideline10"
-            app:layout_constraintTop_toTopOf="@+id/guideline5" />
+    <TextView
+        android:id="@+id/right_top_text"
+        style="@style/top_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:padding="10dp"
+        android:text="Simple\nForm"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/guideline10"
+        app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
+    <TextView
+        android:id="@+id/number"
+        style="@style/black_big_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1/2"
 
+        app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input1"
         android:layout_width="341dp"
         android:layout_height="50dp"
-        android:layout_marginTop="25dp"
+
+        android:hint="Species"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -106,43 +119,50 @@
         app:boxStrokeWidthFocused="0dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/guideline3"
-        >
+        app:layout_constraintTop_toTopOf="@+id/guideline17"
+        app:layout_constraintBottom_toTopOf="@id/input2">
 
 
         <AutoCompleteTextView
             android:id="@+id/dropdown_menu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             android:background="@drawable/bg"
-            android:textSize="16sp"
             android:paddingLeft="12dp"
-            android:paddingRight="12dp"
             android:paddingTop="15dp"
-            android:hint="Species"
+            android:paddingRight="12dp"
             android:textColorHint="@color/nature_green"
+            android:textSize="16sp"
 
             >
 
         </AutoCompleteTextView>
 
 
-        <!--        <com.google.android.material.textfield.TextInputEditText-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="@drawable/bg"-->
-<!--            android:outlineProvider="none">-->
-
-<!--        </com.google.android.material.textfield.TextInputEditText>-->
-
-
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/loading"
+        android:layout_width="341dp"
+        android:layout_height="50dp"
+        android:background="@drawable/bg"
+        android:paddingLeft="12dp"
+        android:paddingTop="15dp"
+        android:paddingRight="12dp"
+        android:text="Loading species.."
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/input1"
+        app:layout_constraintEnd_toEndOf="@+id/input1"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/input1">
+
+    </TextView>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input2"
         android:layout_width="341dp"
         android:layout_height="50dp"
-        android:layout_marginTop="25dp"
         android:hint="How many"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
@@ -155,54 +175,58 @@
         app:counterOverflowTextColor="@color/teal_200"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/input1">
+        app:layout_constraintTop_toBottomOf="@+id/input1"
+        app:layout_constraintBottom_toTopOf="@id/input4">
 
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/decimal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg"
-            android:outlineProvider="none">
+            android:inputType="numberDecimal"
+            android:outlineProvider="none"
+            >
 
         </com.google.android.material.textfield.TextInputEditText>
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input3"
-        android:layout_width="341dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
-        android:hint="Time"
-        android:outlineAmbientShadowColor="@color/black"
-        android:scrollbarSize="40dp"
-        app:boxBackgroundColor="#FFF"
-        app:boxStrokeColor="#FFF"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:counterEnabled="false"
-        app:counterMaxLength="32"
-        app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/input2">
+    <!--    <com.google.android.material.textfield.TextInputLayout-->
+    <!--        android:id="@+id/input3"-->
+    <!--        android:layout_width="341dp"-->
+    <!--        android:layout_height="50dp"-->
+    <!--        android:layout_marginTop="25dp"-->
+    <!--        android:hint="Time"-->
+    <!--        android:outlineAmbientShadowColor="@color/black"-->
+    <!--        android:scrollbarSize="40dp"-->
+    <!--        app:boxBackgroundColor="#FFF"-->
+    <!--        app:boxStrokeColor="#FFF"-->
+    <!--        app:boxStrokeWidth="0dp"-->
+    <!--        app:boxStrokeWidthFocused="0dp"-->
+    <!--        app:counterEnabled="false"-->
+    <!--        app:counterMaxLength="32"-->
+    <!--        app:counterOverflowTextColor="@color/teal_200"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/guideline7"-->
+    <!--        app:layout_constraintTop_toBottomOf="@+id/input2">-->
 
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg"
-            android:outlineProvider="none">
+    <!--        <com.google.android.material.textfield.TextInputEditText-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:background="@drawable/bg"-->
+    <!--            android:outlineProvider="none">-->
 
-        </com.google.android.material.textfield.TextInputEditText>
+    <!--        </com.google.android.material.textfield.TextInputEditText>-->
 
-    </com.google.android.material.textfield.TextInputLayout>
+
+    <!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input4"
         android:layout_width="341dp"
         android:layout_height="50dp"
-        android:layout_marginTop="25dp"
         android:hint="Location"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
@@ -210,37 +234,40 @@
         app:boxStrokeColor="#FFF"
         app:boxStrokeWidth="0dp"
         app:boxStrokeWidthFocused="0dp"
-        app:counterEnabled="false"
         app:counterMaxLength="32"
         app:counterOverflowTextColor="@color/teal_200"
+        app:layout_constraintBottom_toTopOf="@+id/get_location"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/input3">
+        app:layout_constraintTop_toBottomOf="@+id/input2"
+        >
 
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loc_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg"
-            android:outlineProvider="none">
+            android:outlineProvider="none"
+            tools:layout_conversion_absoluteHeight="50dp"
+            tools:layout_conversion_absoluteWidth="341dp"
+            android:inputType="text">
 
         </com.google.android.material.textfield.TextInputEditText>
 
     </com.google.android.material.textfield.TextInputLayout>
 
-
     <RelativeLayout
-        android:id="@+id/button_signup"
-        android:layout_width="343dp"
-        android:layout_height="51dp"
+        android:id="@+id/button_next_step"
+        android:layout_width="171dp"
+        android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/button_prim"
+        android:background="@drawable/add_photo_button"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
 
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <TextView
@@ -252,12 +279,43 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal|top"
-        android:text="Apply"
+        android:text="Set Date"
+        android:textSize="20dp"
         android:textAppearance="@style/sign_up"
-        app:layout_constraintBottom_toBottomOf="@+id/button_signup"
-        app:layout_constraintEnd_toEndOf="@+id/button_signup"
-        app:layout_constraintStart_toStartOf="@+id/button_signup"
-        app:layout_constraintTop_toTopOf="@+id/button_signup" />
+        app:layout_constraintBottom_toBottomOf="@+id/button_next_step"
+        app:layout_constraintEnd_toEndOf="@+id/button_next_step"
+        app:layout_constraintStart_toStartOf="@+id/button_next_step"
+        app:layout_constraintTop_toTopOf="@+id/button_next_step" />
+
+    <RelativeLayout
+        android:id="@+id/button_send"
+        android:layout_width="171dp"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/add_photo_button"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toTopOf="@+id/guideline2" />
+
+    <TextView
+        android:id="@+id/send_2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal|top"
+        android:text="Upload"
+        android:textSize="20dp"
+        android:textAppearance="@style/sign_up"
+        app:layout_constraintBottom_toBottomOf="@+id/button_send"
+        app:layout_constraintEnd_toEndOf="@+id/button_send"
+        app:layout_constraintStart_toStartOf="@+id/button_send"
+        app:layout_constraintTop_toTopOf="@+id/button_send" />
 
     <!-- BG -->
     <View
@@ -270,10 +328,10 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/add_photo_button"
         app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@+id/get_location"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/input4"
+        app:layout_constraintTop_toBottomOf="@id/get_location"
         tools:ignore="MissingConstraints" />
 
 
@@ -303,10 +361,10 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/add_photo_button"
         app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@+id/button_signup"
+        app:layout_constraintBottom_toTopOf="@+id/add_photo_button"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toBottomOf="@+id/add_photo_button"
+        app:layout_constraintTop_toBottomOf="@+id/input4"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -318,7 +376,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal|top"
-        android:text="Get Location"
+        android:text="Auto-fill Location"
         android:textAppearance="@style/sign_up"
         app:layout_constraintBottom_toBottomOf="@+id/get_location"
         app:layout_constraintEnd_toEndOf="@+id/get_location"
@@ -331,5 +389,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.8813161" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

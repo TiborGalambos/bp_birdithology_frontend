@@ -114,7 +114,7 @@
     <TextView
         android:id="@+id/click_me"
         android:layout_width="67dp"
-        android:layout_height="19dp"
+        android:layout_height="21dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
@@ -133,10 +133,10 @@
     <TextView
         android:id="@+id/secondary_a"
         android:layout_width="311dp"
-        android:layout_height="19dp"
+        android:layout_height="40dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:gravity="center_horizontal|top"
+        android:gravity="center"
         android:text="@string/sign_up"
         android:textAppearance="@style/secondary_a"
         app:layout_constraintBottom_toTopOf="@+id/guideline11"

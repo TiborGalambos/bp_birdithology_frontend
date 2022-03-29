@@ -276,7 +276,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/button_signup"
+        android:id="@+id/button_next_step"
         android:layout_width="343dp"
         android:layout_height="51dp"
         android:layout_alignParentLeft="true"
@@ -300,10 +300,10 @@
         android:gravity="center_horizontal|top"
         android:text="Apply"
         android:textAppearance="@style/sign_up"
-        app:layout_constraintBottom_toBottomOf="@+id/button_signup"
-        app:layout_constraintEnd_toEndOf="@+id/button_signup"
-        app:layout_constraintStart_toStartOf="@+id/button_signup"
-        app:layout_constraintTop_toTopOf="@+id/button_signup" />
+        app:layout_constraintBottom_toBottomOf="@+id/button_next_step"
+        app:layout_constraintEnd_toEndOf="@+id/button_next_step"
+        app:layout_constraintStart_toStartOf="@+id/button_next_step"
+        app:layout_constraintTop_toTopOf="@+id/button_next_step" />
 
     <!-- BG -->
     <View
@@ -316,7 +316,7 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/add_photo_button"
         app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@+id/button_signup"
+        app:layout_constraintBottom_toTopOf="@+id/button_next_step"
         app:layout_constraintEnd_toStartOf="@+id/get_location"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toBottomOf="@+id/input6"
@@ -350,7 +350,7 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/add_photo_button"
         app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@+id/button_signup"
+        app:layout_constraintBottom_toTopOf="@+id/button_next_step"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintTop_toBottomOf="@+id/input6"
         app:layout_constraintStart_toEndOf="@id/add_photo_button"

@@ -1,4 +1,4 @@
-package com.example.bp_frontend
+package com.example.bp_frontend.dataItems
 
 data class EbirdDataItem(
     val bandingCodes: List<String>,
