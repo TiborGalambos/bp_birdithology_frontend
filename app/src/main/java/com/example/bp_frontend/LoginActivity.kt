@@ -56,12 +56,14 @@ class LoginActivity : AppCompatActivity() {
 
                         if (loginResponse != null){
                             sessionManager.saveToken(loginResponse.token)
+//                            sessionManager.saveUsername(username)
                         }
                         val token = sessionManager.getToken()
 
                         val intent = Intent(applicationContext, HomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                         startActivity(intent)
+                        finish()
                     }
 
                     if(response.code() == 400){
@@ -123,12 +125,14 @@ class LoginActivity : AppCompatActivity() {
         signup_text_button.setOnClickListener {
             val intent = Intent(applicationContext, SignupActivity::class.java)
             startActivity(intent)
+            finish()
         }
         val cancel_button = findViewById(R.id.left_top_text) as TextView
 
         cancel_button.setOnClickListener {
             val intent = Intent(applicationContext, WelcomeActivity::class.java)
             startActivity(intent)
+
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
         }
     }

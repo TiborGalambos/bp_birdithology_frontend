@@ -1,26 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".HomeActivity">
+    tools:context=".ProfileActivity">
 
-<androidx.drawerlayout.widget.DrawerLayout
-    android:id="@+id/drawer"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    tools:context=".HomeActivity">
-
-</androidx.drawerlayout.widget.DrawerLayout>
 
     <TextView
         android:id="@+id/textView"
         style="@style/black_big_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Domov"
+        android:text="Profil"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
@@ -67,7 +59,7 @@
         style="@style/top_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Odhlásiť sa"
+        android:text="Späť"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
@@ -92,78 +84,61 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.21" />
+        app:layout_constraintGuide_percent="0.34" />
+
+    <!--    <TextView-->
+    <!--        android:id="@+id/right_top_text"-->
+    <!--        style="@style/top_text"-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:layout_marginTop="0dp"-->
+    <!--        android:text="Profile"-->
+    <!--        app:layout_constraintBottom_toTopOf="@+id/guideline3"-->
+    <!--        app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+    <!--        app:layout_constraintStart_toStartOf="@+id/guideline10"-->
+    <!--        app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="104dp"
+        android:layout_height="91dp"
+        android:scaleX="0.8"
+        android:scaleY="0.8"
+        android:src="@drawable/profile_pic"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/right_top_text"
-        style="@style/top_text"
+        android:id="@+id/profile_name"
+        style="@style/black_big_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="0dp"
-        android:text="Profil"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline10"
-        app:layout_constraintTop_toTopOf="@+id/guideline5" />
+        android:text="username"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toBottomOf="@+id/image" />
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/search_Bar"
-        android:layout_width="341dp"
-        android:layout_height="50dp"
-        android:hint="Hľadať"
-        android:outlineAmbientShadowColor="@color/black"
-        android:scrollbarSize="40dp"
-        app:boxBackgroundColor="#FFF"
-        app:boxStrokeColor="#FFF"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:counterEnabled="false"
-        app:counterMaxLength="32"
-        app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline3">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/search_bg"
-            android:outlineProvider="none">
-
-        </com.google.android.material.textfield.TextInputEditText>
-
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+    <TextView
+        android:id="@+id/account_type"
+        style="@style/black_big_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        app:backgroundTint="@color/nature_green"
-        android:src="@android:drawable/ic_input_add"
-        app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline10" />
+        android:text="user"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline10"
+        app:layout_constraintStart_toStartOf="@+id/guideline9"
+        app:layout_constraintTop_toBottomOf="@+id/profile_name" />
 
     <ListView
-
         android:id="@+id/list_id"
         android:layout_width="match_parent"
-        android:layout_height="600dp"
-        android:scrollbarSize="0dp"
+        android:layout_height="523dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@id/guideline2"
-        app:layout_constraintEnd_toStartOf="@id/guideline8"
-        android:padding="0dp"
-        android:layout_margin="0dp"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toTopOf="@+id/guideline2"
+        tools:layout_editor_absoluteX="-1dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

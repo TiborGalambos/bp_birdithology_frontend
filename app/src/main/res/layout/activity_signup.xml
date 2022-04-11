@@ -12,7 +12,7 @@
         style="@style/black_big_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/sign_up"
+        android:text="Registrácia"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
@@ -59,7 +59,7 @@
         style="@style/top_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cancel"
+        android:text="Zrušiť"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
@@ -86,7 +86,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
-        android:text="@string/login"
+        android:text="Prihlásiť\nsa"
+        android:textAlignment="center"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
@@ -98,7 +99,7 @@
         android:layout_width="341dp"
         android:layout_height="50dp"
         android:layout_marginTop="25dp"
-        android:hint="Name"
+        android:hint="Používateľské meno"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -110,7 +111,8 @@
         app:counterOverflowTextColor="@color/teal_200"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/guideline3">
+        app:layout_constraintTop_toBottomOf="@+id/guideline3"
+        app:layout_constraintBottom_toTopOf="@+id/password_bar1">
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -125,43 +127,43 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/email_bar"
-        android:layout_width="341dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="25dp"
-        android:hint="Email"
-        android:outlineAmbientShadowColor="@color/black"
-        android:scrollbarSize="40dp"
-        app:boxBackgroundColor="#FFF"
-        app:boxStrokeColor="#FFF"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:counterEnabled="false"
-        app:counterMaxLength="32"
-        app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/name_bar1">
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/email_bar"-->
+<!--        android:layout_width="341dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:layout_marginTop="25dp"-->
+<!--        android:hint="Email"-->
+<!--        android:outlineAmbientShadowColor="@color/black"-->
+<!--        android:scrollbarSize="40dp"-->
+<!--        app:boxBackgroundColor="#FFF"-->
+<!--        app:boxStrokeColor="#FFF"-->
+<!--        app:boxStrokeWidth="0dp"-->
+<!--        app:boxStrokeWidthFocused="0dp"-->
+<!--        app:counterEnabled="false"-->
+<!--        app:counterMaxLength="32"-->
+<!--        app:counterOverflowTextColor="@color/teal_200"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/guideline7"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/name_bar1">-->
 
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg"
-            android:outlineProvider="none">
+<!--&lt;!&ndash;        <com.google.android.material.textfield.TextInputEditText&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:layout_height="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:background="@drawable/bg"&ndash;&gt;-->
+<!--&lt;!&ndash;            android:outlineProvider="none">&ndash;&gt;-->
 
-        </com.google.android.material.textfield.TextInputEditText>
+<!--&lt;!&ndash;        </com.google.android.material.textfield.TextInputEditText>&ndash;&gt;-->
 
 
-    </com.google.android.material.textfield.TextInputLayout>
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/password_bar1"
         android:layout_width="341dp"
         android:layout_height="50dp"
+        android:hint="Heslo"
         android:layout_marginTop="25dp"
-        android:hint="Password"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -171,9 +173,10 @@
         app:counterEnabled="false"
         app:counterMaxLength="32"
         app:counterOverflowTextColor="@color/teal_200"
+
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/email_bar">
+        app:layout_constraintTop_toBottomOf="@+id/name_bar1">
 
 
         <com.google.android.material.textfield.TextInputEditText

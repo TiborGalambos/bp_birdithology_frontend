@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="New\n Observation"
+        android:text="Nové\n Pozorovanie"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
@@ -61,7 +61,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="@string/cancel"
+        android:text="Zrušiť"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
@@ -88,29 +88,29 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="0dp"
         android:padding="10dp"
-        android:text="Simple\nForm"
+        android:text="Nepoznám\ndruh"
         android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline10"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
-    <TextView
-        android:id="@+id/number"
-        style="@style/black_big_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="1/2"
+<!--    <TextView-->
+<!--        android:id="@+id/number"-->
+<!--        style="@style/black_big_header"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="1/2"-->
 
-        app:layout_constraintEnd_toStartOf="@+id/guideline10"
-        app:layout_constraintStart_toStartOf="@+id/guideline9"
-        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+<!--        app:layout_constraintEnd_toStartOf="@+id/guideline10"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/guideline9"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/guideline3" />-->
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input1"
         android:layout_width="341dp"
         android:layout_height="50dp"
 
-        android:hint="Species"
+        android:hint="Druhy"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -163,7 +163,7 @@
         android:id="@+id/input2"
         android:layout_width="341dp"
         android:layout_height="50dp"
-        android:hint="How many"
+        android:hint="Počet"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -227,7 +227,7 @@
         android:id="@+id/input4"
         android:layout_width="341dp"
         android:layout_height="50dp"
-        android:hint="Location"
+        android:hint="Miesto"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -279,7 +279,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal|top"
-        android:text="Set Date"
+        android:text="Nastaviť dátum"
         android:textSize="20dp"
         android:textAppearance="@style/sign_up"
         app:layout_constraintBottom_toBottomOf="@+id/button_next_step"
@@ -309,7 +309,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal|top"
-        android:text="Upload"
+        android:text="Nahrať"
         android:textSize="20dp"
         android:textAppearance="@style/sign_up"
         app:layout_constraintBottom_toBottomOf="@+id/button_send"
@@ -344,7 +344,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal|top"
-        android:text="Add Photo"
+        android:text="Pridať fotku"
         android:textAppearance="@style/sign_up"
         app:layout_constraintBottom_toBottomOf="@+id/add_photo_button"
         app:layout_constraintEnd_toEndOf="@+id/add_photo_button"
@@ -376,7 +376,7 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal|top"
-        android:text="Auto-fill Location"
+        android:text="Zisti miesto"
         android:textAppearance="@style/sign_up"
         app:layout_constraintBottom_toBottomOf="@+id/get_location"
         app:layout_constraintEnd_toEndOf="@+id/get_location"

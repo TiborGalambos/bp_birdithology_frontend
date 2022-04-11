@@ -36,7 +36,6 @@
     <style name="Theme.BP_frontend.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 
-
     <!-- Black Big Header -->
     <style name="black_big_header">
         <item name="android:textSize">
@@ -132,9 +131,6 @@
 
 
     </style>
-
-
-
 
 
 </resources>

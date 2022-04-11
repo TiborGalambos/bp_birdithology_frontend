@@ -20,6 +20,7 @@ import androidx.core.view.isVisible
 import com.example.bp_frontend.backendEndpoints.BackendApiClient
 import com.example.bp_frontend.backendEndpoints.NormalObservationResponse
 import com.example.bp_frontend.dataItems.EbirdDataItem
+import com.example.bp_frontend.dataItems.ObservationDataItem
 import com.example.bp_frontend.loginLogic.SessionManager
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -107,13 +108,17 @@ class NewObservationActivity : AppCompatActivity() {
 
             if (checkEmptyFields(dropdown_menu, number)) return@setOnClickListener
 
-//            intent.putExtra("species",dropdown_menu.text
             val intent = Intent(this, NewObservationPickTimeActivity::class.java)
             intent.putExtra("bird_name",dropdown_menu.text.toString())
             intent.putExtra("file_path",file_path.toString())
             intent.putExtra("number_of_birds",number.text.toString())
             startActivity(intent)
         }
+
+
+        // --------------------------
+        // Submitting the observation
+        // --------------------------
 
         submit_button.setOnClickListener {
 
@@ -124,7 +129,10 @@ class NewObservationActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // no photo found
+
+            // -------------------------------
+            // Observation WITHOUT photo added
+            // -------------------------------
 
             if(this::file_path.isInitialized == false){
                 Log.d("my_debug", "it is null")
@@ -141,32 +149,47 @@ class NewObservationActivity : AppCompatActivity() {
                         bird_name = dropdown_menu.text.toString().replace("(^\\(|\\)$)", ""),
                         obs_x_coords = longitude.toFloat(),
                         obs_y_coords = latitude.toFloat(),
-                    ).enqueue(object : Callback<NormalObservationResponse?> {
-                        override fun onResponse(
-                            call: Call<NormalObservationResponse?>,
-                            response: Response<NormalObservationResponse?>
-                        ) {
-                            if(response.code() == 200) {
-                                Toast.makeText(
-                                    applicationContext,
-                                    "Your bird was added.",
-                                    Toast.LENGTH_LONG
-                                ).show()
-                                startActivity(intent)
-                            }
+                    ).enqueue(object : Callback<ObservationDataItem?> {
 
-                            else {
+                        override fun onResponse(
+                            call: Call<ObservationDataItem?>,
+                            response: Response<ObservationDataItem?>
+                        )
+                        {
+                            if(response.code() == 200) {
+                                Toast.makeText(applicationContext,"Your bird was added.", Toast.LENGTH_LONG).show()
+                                startActivity(intent)
+
+
+                                // ---
+                                // Log
+                                // ---
                                 Toast.makeText(applicationContext," HALF SUCCESS ${response.code()}", Toast.LENGTH_SHORT).show()
                                 Log.d("my_debug", "${response.code()} <|> ${response.body()}")
                                 Log.d("my_debug", "token ${sessionManager.getToken()} \n " +
                                         "bird_count = ${number.text.toString()},\n" +
                                         "bird_name = ${dropdown_menu.text.toString()},\n" +
-                                        "                obs_x_coords = $longitude,\n" +
-                                        "                obs_y_coords = $latitude,\n")
+                                        "obs_x_coords = $longitude,\n" +
+                                        "obs_y_coords = $latitude,\n")
+
+                            }
+
+                            else {
+
+                                // ---
+                                // Log
+                                // ---
+                                Toast.makeText(applicationContext," HALF SUCCESS ${response.code()}", Toast.LENGTH_SHORT).show()
+                                Log.d("my_debug", "${response.code()} <|> ${response.body()}")
+                                Log.d("my_debug", "token ${sessionManager.getToken()} \n " +
+                                        "bird_count = ${number.text.toString()},\n" +
+                                        "bird_name = ${dropdown_menu.text.toString()},\n" +
+                                        "obs_x_coords = $longitude,\n" +
+                                        "obs_y_coords = $latitude,\n")
                             }
                         }
 
-                        override fun onFailure(call: Call<NormalObservationResponse?>, t: Throwable) {
+                        override fun onFailure(call: Call<ObservationDataItem?>, t: Throwable) {
 
                             Toast.makeText(applicationContext, "FAIL", Toast.LENGTH_SHORT).show()
                             Log.d("my_debug", "${t.message}")
@@ -174,7 +197,10 @@ class NewObservationActivity : AppCompatActivity() {
                     })
             }
 
-            // photo found
+            // ----------------------------
+            // Observation WITH photo added
+            // ----------------------------
+
             if(this::file_path.isInitialized){
                 val file = File(file_path.path)
                 val requestbody = file.asRequestBody("image/*".toMediaTypeOrNull())
@@ -186,26 +212,30 @@ class NewObservationActivity : AppCompatActivity() {
                 apiClient = BackendApiClient()
                 sessionManager = SessionManager(this)
                 val intent = Intent(applicationContext, HomeActivity::class.java)
-                apiClient.getApiService(this)
-                    .newNormalObservation(
+                apiClient.getApiService(this).newNormalObservation(
                     token = "Token ${sessionManager.getToken()}",
                     bird_count = number.text.toString().toInt(),
                     bird_name = dropdown_menu.text.toString().replace("(^\\(|\\)$)", ""),
                     obs_x_coords = longitude.toFloat(),
                     obs_y_coords = latitude.toFloat(),
                     bird_photo = part
-                    ).enqueue(object : Callback<NormalObservationResponse?> {
+                    ).enqueue(object : Callback<ObservationDataItem?> {
                     override fun onResponse(
-                        call: Call<NormalObservationResponse?>,
-                        response: Response<NormalObservationResponse?>
+                        call: Call<ObservationDataItem?>,
+                        response: Response<ObservationDataItem?>
                     ) {
                         if(response.code() == 200) {
-                            Toast.makeText(
-                                applicationContext,
-                                "Your bird was added.",
-                                Toast.LENGTH_LONG
-                            ).show()
+                            Toast.makeText(applicationContext,"Your bird was added.", Toast.LENGTH_LONG).show()
                             startActivity(intent)
+
+                            Log.d("my_debug", "${response.code()} <|> ${response.body()}")
+                            Log.d("my_debug", "token ${sessionManager.getToken()} \n " +
+                                    "bird_count = ${number.text.toString()},\n" +
+                                    "bird_name = ${dropdown_menu.text.toString()},\n" +
+                                    "                obs_x_coords = $longitude,\n" +
+                                    "                obs_y_coords = $latitude,\n" +
+                                    "                bird_photo = $part")
+
                         }
 
                         else {
@@ -220,7 +250,7 @@ class NewObservationActivity : AppCompatActivity() {
                         }
                     }
 
-                    override fun onFailure(call: Call<NormalObservationResponse?>, t: Throwable) {
+                    override fun onFailure(call: Call<ObservationDataItem?>, t: Throwable) {
 
                         Toast.makeText(applicationContext, "FAIL", Toast.LENGTH_SHORT).show()
                         Log.d("my_debug", "${t.message}")
@@ -255,14 +285,14 @@ class NewObservationActivity : AppCompatActivity() {
         button_submit.setBackgroundResource(R.drawable.add_photo_button_dark) // set dark color
         button_submit.isEnabled = false
         button_submit.isClickable = false
-        login_text.text = "Please wait.."
+        login_text.text = "Počkajte.."
     }
 
     private fun setOriginalProperty(button_submit: RelativeLayout, login_text: TextView) {
         button_submit.setBackgroundResource(R.drawable.add_photo_button) // set original color
         button_submit.isEnabled = true
         button_submit.isClickable = true
-        login_text.text = "Upload"
+        login_text.text = "Nahrať"
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -274,7 +304,7 @@ class NewObservationActivity : AppCompatActivity() {
             val photo_text = findViewById<TextView>(R.id.add_photo_text)
 
             photo_button.setBackgroundResource(R.drawable.add_photo_button_dark)
-            photo_text.text = "Photo Added"
+            photo_text.text = "Fotka Pridaná"
 
 
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
@@ -428,18 +458,4 @@ class NewObservationActivity : AppCompatActivity() {
 
     }
 
-
-//my
-//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//        super.onActivityResult(requestCode, resultCode, data)
-//        if (requestCode == 123) {
-//            code = requestCode
-//
-//            file_path = data!!.getData()!!
-//            Toast.makeText(applicationContext, file_path.toString(), Toast.LENGTH_SHORT).show()
-//
-//
-//
-//        }
-//    }
 }
