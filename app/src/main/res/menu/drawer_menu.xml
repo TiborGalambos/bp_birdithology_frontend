@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single"
+        android:id="@+id/group1">
+        <item android:id="@+id/nav_home"
+            android:title="Home">
+        </item>
+        <item android:id="@+id/nav_my_collection"
+            android:title="Moje pozorovania">
+        </item>
+        <item android:id="@+id/nav_new_obs"
+            android:title="Pridať pozorovanie">
+        </item>
+    </group>
+
+
+    <group android:checkableBehavior="single"
+        android:id="@+id/group2">
+        <item android:id="@+id/nav_profile"
+            android:title="Profil">
+        </item>
+        <item android:id="@+id/nav_logout"
+            android:title="Odhlásiť sa">
+        </item>
+
+    </group>
+
+</menu>

@@ -22,6 +22,7 @@
             android:layout_height="363dp"
 
 
+
             android:background="@drawable/welcome_bg1"
             android:elevation="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -77,11 +78,11 @@
 
     <TextView
         android:layout_width="243dp"
-        android:layout_height="36dp"
+        android:layout_height="40dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal|top"
-        android:text="Vítaj"
+        android:text="Vítajte"
         android:textAppearance="@style/congratulat"
         app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"

@@ -1,16 +1,19 @@
 package com.example.bp_frontend
 
+
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
 import android.view.View
+import android.widget.ImageButton
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.GravityCompat
+import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.bp_frontend.ListAdapter.ItemListAdapter
 import com.example.bp_frontend.backendEndpoints.BackendApiClient
@@ -18,33 +21,70 @@ import com.example.bp_frontend.backendEndpoints.LoginResponse
 import com.example.bp_frontend.dataItems.ObservationList
 import com.example.bp_frontend.loginLogic.SessionManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.internal.ContextUtils.getActivity
+import com.google.android.material.navigation.NavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
 
 
 class HomeActivity : AppCompatActivity() {
-    lateinit var sessionManager: SessionManager
+    private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: BackendApiClient
     lateinit var id:Array<String?>
     var item_id:Int = 0
 
-
+    var drawerLayout: DrawerLayout? = null
+    var actionBarDrawerToggle: ActionBarDrawerToggle? = null
+    var navigationView: NavigationView? = null
 
 
     @SuppressLint("RtlHardcoded", "RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_home)
 
-        
+        setUpToolbar()
+        navigationView = findViewById<View>(R.id.navigation_menu) as NavigationView
+        navigationView!!.setNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.nav_home -> {
+                    val intent = Intent(this@HomeActivity, HomeActivity::class.java)
+                    startActivity(intent)
+                }
+
+                R.id.nav_profile -> {
+                    val intent = Intent(this@HomeActivity, ProfileActivity::class.java)
+                    startActivity(intent)
+                }
+
+                R.id.nav_logout -> {
+                    logOutUser()
+                }
+
+                R.id.nav_new_obs -> {
+                    val intent = Intent(this@HomeActivity, NewObservationActivity::class.java)
+                    startActivity(intent)
+                }
+
+
+            }
+            false
+        }
 
 
 
 
-        logoutButtonListener()
+        val left_top_text = findViewById<ImageButton>(R.id.left_top_text)
+        left_top_text.setOnClickListener {
+
+            if(!drawerLayout!!.isOpen) {
+                drawerLayout!!.openDrawer(Gravity.LEFT)
+            }
+            else {
+                drawerLayout!!.closeDrawer(Gravity.LEFT)
+            }
+        }
 
         val right_top_text = findViewById<TextView>(R.id.right_top_text)
         right_top_text.setOnClickListener{
@@ -52,6 +92,8 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+
+
 
         apiClient = BackendApiClient()
         sessionManager = SessionManager(this)
@@ -86,36 +128,51 @@ class HomeActivity : AppCompatActivity() {
         startNewObservation()
     }
 
-    private fun logoutButtonListener() {
-        val left_top_text = findViewById<TextView>(R.id.left_top_text)
-        left_top_text.setOnClickListener {
+    private fun logOutUser() {
+        apiClient = BackendApiClient()
+        sessionManager = SessionManager(this@HomeActivity)
 
-            apiClient.getApiService(this).logOut(token = "Token ${sessionManager.getToken()}")
-                .enqueue(object : Callback<LoginResponse?> {
-                    override fun onResponse(
-                        call: Call<LoginResponse?>,
-                        response: Response<LoginResponse?>
-                    ) {
-                        if (response.code() == 204) {
-                            val intent = Intent(applicationContext, WelcomeActivity::class.java)
-                            startActivity(intent)
-                            finish()
-                        }
-                        if (response.code() == 401) {
-                            Toast.makeText(
-                                applicationContext,
-                                "Something went wrong, please report this to Tibor Galambos",
-                                Toast.LENGTH_LONG
-                            ).show()
-                        }
+        apiClient.getApiService(this).logOut(token = "Token ${sessionManager.getToken()}")
+            .enqueue(object : Callback<LoginResponse?> {
+                override fun onResponse(
+                    call: Call<LoginResponse?>,
+                    response: Response<LoginResponse?>
+                ) {
+                    if (response.code() == 204) {
+                        val intent = Intent(applicationContext, WelcomeActivity::class.java)
+                        startActivity(intent)
+                        finish()
                     }
+                    if (response.code() == 401) {
+                        Toast.makeText(
+                            applicationContext,
+                            "Something went wrong, please report this to Tibor Galambos",
+                            Toast.LENGTH_LONG
+                        ).show()
+                    }
+                }
 
-                    override fun onFailure(call: Call<LoginResponse?>, t: Throwable) {
-                        TODO("Not yet implemented")
-                    }
-                })
-        }
+                override fun onFailure(call: Call<LoginResponse?>, t: Throwable) {
+                    TODO("Not yet implemented")
+                }
+            })
     }
+
+    fun setUpToolbar() {
+        drawerLayout = findViewById(R.id.drawerLayout)
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        actionBarDrawerToggle =
+            ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.app_name, R.string.app_name)
+        drawerLayout?.addDrawerListener(actionBarDrawerToggle!!)
+        actionBarDrawerToggle!!.syncState()
+        toolbar.setNavigationIcon(null);
+    }
+
+
+
+
+
 
     private fun fetchObservations(response: Response<ObservationList?>) {
         val items = response.body()
@@ -137,17 +194,6 @@ class HomeActivity : AppCompatActivity() {
             id[i] = items.obs[i].id.toString()
             Log.d("my_debug", "$i ${items.obs.size}  ${items.obs[i].comments.indices}")
         }
-
-//        for (i: Int in items.obs.indices)
-//        {
-//            for (j: Int in items.obs[i].comments.indices)
-//            {
-//                Log.d("my_debug", "$i $j ${comment.size}")
-//                com_author[i][j] = (items.obs[i].comments[j].com_author).replace("\"", "")
-//                comment[i][j] = (items.obs[i].comments[j].comment).replace("\"", "")
-//            }
-//        }
-
 
 
         val adapter = ItemListAdapter(
@@ -196,19 +242,6 @@ class HomeActivity : AppCompatActivity() {
 
             startActivity(intent)
         }
-
-
-
-//        val comments_id = findViewById<ListView>(R.id.comments_id)
-//
-////        val com_adapter = CommentListAdapter(
-////            context,
-////            com_author,
-////            comment
-////        )
-//
-//        comments_id.adapter = com_adapter
-
 
 
     }
