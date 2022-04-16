@@ -6,6 +6,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.ImageButton
 import android.widget.ListView
@@ -14,10 +16,12 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.get
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.bp_frontend.ListAdapter.ItemListAdapter
 import com.example.bp_frontend.backendEndpoints.BackendApiClient
 import com.example.bp_frontend.backendEndpoints.LoginResponse
+import com.example.bp_frontend.dataItems.AdminVerification
 import com.example.bp_frontend.dataItems.ObservationList
 import com.example.bp_frontend.loginLogic.SessionManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -37,12 +41,21 @@ class HomeActivity : AppCompatActivity() {
     var actionBarDrawerToggle: ActionBarDrawerToggle? = null
     var navigationView: NavigationView? = null
 
+    var admin_menu : MenuItem? = null
+
 
     @SuppressLint("RtlHardcoded", "RestrictedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.activity_home)
+
+        val drawer_menu = findViewById(R.id.navigation_menu) as NavigationView
+
+        apiClient = BackendApiClient()
+        sessionManager = SessionManager(this)
+
+        amIAdmin(drawer_menu)
 
         setUpToolbar()
         navigationView = findViewById<View>(R.id.navigation_menu) as NavigationView
@@ -64,6 +77,21 @@ class HomeActivity : AppCompatActivity() {
 
                 R.id.nav_new_obs -> {
                     val intent = Intent(this@HomeActivity, NewObservationActivity::class.java)
+                    startActivity(intent)
+                }
+
+                R.id.nav_glob_stats -> {
+                    val intent = Intent(this@HomeActivity, GlobalStatisticsActivity::class.java)
+                    startActivity(intent)
+                }
+
+                R.id.nav_my_collection -> {
+                    val intent = Intent(this@HomeActivity, MyCollectionActivity::class.java)
+                    startActivity(intent)
+                }
+
+                admin_menu?.itemId -> {
+                    val intent = Intent(this@HomeActivity, AdminConfirmActivity::class.java)
                     startActivity(intent)
                 }
 
@@ -95,8 +123,6 @@ class HomeActivity : AppCompatActivity() {
 
 
 
-        apiClient = BackendApiClient()
-        sessionManager = SessionManager(this)
 
 
         // --------------------------------
@@ -110,6 +136,7 @@ class HomeActivity : AppCompatActivity() {
                 response: Response<ObservationList?>
             ) {
                 if(response.code() == 200){
+                    Toast.makeText(applicationContext, "GOOD ${response.code()}", Toast.LENGTH_SHORT)
                     fetchObservations(response)
 
                 }
@@ -128,6 +155,26 @@ class HomeActivity : AppCompatActivity() {
         startNewObservation()
     }
 
+    private fun amIAdmin(drawer_menu: NavigationView) {
+        apiClient.getApiService(this@HomeActivity)
+            .amIAdmin(token = "Token ${sessionManager.getToken()}")
+            .enqueue(object : Callback<AdminVerification?> {
+                override fun onResponse(
+                    call: Call<AdminVerification?>,
+                    response: Response<AdminVerification?>
+                ) {
+                    Log.d("my_debug", "${response.body()?.is_admin}")
+                    if (response.code() == 200 && response.body()!!.is_admin) {
+                        admin_menu = drawer_menu.menu.add("Nepotvrdené pozorovania")
+                    }
+                }
+
+                override fun onFailure(call: Call<AdminVerification?>, t: Throwable) {
+                    Toast.makeText(applicationContext, "VERY BAD", Toast.LENGTH_SHORT)
+                }
+            })
+    }
+
     private fun logOutUser() {
         apiClient = BackendApiClient()
         sessionManager = SessionManager(this@HomeActivity)
@@ -140,6 +187,7 @@ class HomeActivity : AppCompatActivity() {
                 ) {
                     if (response.code() == 204) {
                         val intent = Intent(applicationContext, WelcomeActivity::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
                         finish()
                     }
@@ -180,6 +228,7 @@ class HomeActivity : AppCompatActivity() {
         val author = arrayOfNulls<String>(items!!.obs.size)
         val bird_name = arrayOfNulls<String>(items.obs.size)
         val bird_count = arrayOfNulls<String>(items.obs.size)
+        val obs_location = arrayOfNulls<String>(items.obs.size)
         val photo = arrayOfNulls<String>(items.obs.size)
         val id = arrayOfNulls<String>(items.obs.size)
 
@@ -191,21 +240,22 @@ class HomeActivity : AppCompatActivity() {
             bird_name[i] = (items.obs[i].bird_name).replace("\"", "")
             bird_count[i] = ((items.obs[i].bird_count).toString().replace("\"", ""))
             photo[i] = items.obs[i].bird_photo
+            obs_location[i] = (items.obs[i].obs_place).replace("\"", "")
             id[i] = items.obs[i].id.toString()
-            Log.d("my_debug", "$i ${items.obs.size}  ${items.obs[i].comments.indices}")
+//            Log.d("my_debug", "$i ${items.obs.size}  ${items.obs[i].comments.indices}")
         }
 
 
         val adapter = ItemListAdapter(
             this@HomeActivity,
-            author,
-            bird_name,
-            bird_count,
-            photo,
-            id,
-            items,
-//            com_author,
-//            comment
+            author = author,
+            bird_name = bird_name,
+            bird_count =  bird_count,
+            photo = photo,
+            id = id,
+            items = items,
+            location = obs_location
+
         )
         val list_id = findViewById<ListView>(R.id.list_id)
         list_id.adapter = adapter
@@ -233,16 +283,20 @@ class HomeActivity : AppCompatActivity() {
 
             intent.putExtra("id",items.obs[position].id)
 
+            intent.putExtra("obs_location", (items.obs[position].obs_place))
+
             intent.putExtra("obs_author", items.obs[position].obs_author)
             intent.putExtra("bird_count", items.obs[position].bird_count)
             intent.putExtra("bird_name", items.obs[position].bird_name)
-            intent.putExtra("obs_x_coords", items.obs[position].obs_x_coords)
-            intent.putExtra("obs_y_coords", items.obs[position].obs_y_coords)
+            intent.putExtra("photo", items.obs[position].bird_photo)
+
+
+            Log.d("my_debug", "obs_x_coords: ${items.obs[position].obs_x_coords}" +
+                    "obs_y_coords: ${items.obs[position].obs_y_coords}")
 
 
             startActivity(intent)
         }
-
 
     }
 

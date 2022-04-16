@@ -1,50 +1,38 @@
 package com.example.bp_frontend
 
 import android.content.Intent
-import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.*
+import android.widget.ImageView
+import android.widget.ListView
+import android.widget.TextView
+import android.widget.Toast
 import com.example.bp_frontend.ListAdapter.CommentListAdapter
 import com.example.bp_frontend.backendEndpoints.BackendApiClient
 import com.example.bp_frontend.dataItems.Comment
 import com.example.bp_frontend.loginLogic.SessionManager
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
+import com.squareup.picasso.Picasso
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
-import android.location.Location
-import android.location.LocationManager
-import android.net.Uri
-import com.squareup.picasso.Picasso
 
-
-class ItemContent : AppCompatActivity() {
+class PersonalItemContent : AppCompatActivity() {
 
     lateinit var sessionManager: SessionManager
     private lateinit var apiClient: BackendApiClient
 
-    private var latitude:Double = 0.0
-    private var longitude:Double = 0.0
-
-    lateinit var location_client: FusedLocationProviderClient
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item_content)
+        setContentView(R.layout.activity_personal_item_content)
 
         onClickListeners()
 
         val com_author: Array<String> = intent.getStringArrayExtra("com_author")!!
         val comment: Array<String> = intent.getStringArrayExtra("comment")!!
 
-        val obs_author = intent.getStringExtra("obs_author")
         val bird_count = intent.getIntExtra("bird_count", 0)
         val bird_name = intent.getStringExtra("bird_name")
         val photo = intent.getStringExtra("photo")
@@ -52,7 +40,6 @@ class ItemContent : AppCompatActivity() {
         val idOfItem:Int = intent.getIntExtra("id", 0)
 
 
-        val box_obs_author = findViewById<TextView>(R.id.obs_author)
         val box_bird_name = findViewById<TextView>(R.id.bird_name)
         val box_bird_number = findViewById<TextView>(R.id.bird_number)
         val box_location = findViewById<TextView>(R.id.obs_location)
@@ -64,7 +51,6 @@ class ItemContent : AppCompatActivity() {
             .into(photo_box)
 
 
-        box_obs_author.text = obs_author.toString()
         box_bird_name.text = bird_name?.replace("(^\\(|\\)$)", "")
         box_bird_number.text = bird_count.toString()
         box_location.text = location?.replace("(^\\(|\\)$)", "")
@@ -112,7 +98,7 @@ class ItemContent : AppCompatActivity() {
                         if(response.code() == 200)
                         {
                             Toast.makeText(applicationContext, "Komentár pridaný", Toast.LENGTH_SHORT).show()
-                            val intent = Intent(applicationContext, HomeActivity::class.java)
+                            val intent = Intent(applicationContext, MyCollectionActivity::class.java)
 
                             intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                             startActivity(intent)
@@ -129,7 +115,6 @@ class ItemContent : AppCompatActivity() {
                                     "$response")
 
                         }
-
                     }
 
                     override fun onFailure(call: Call<Comment?>, t: Throwable) {
@@ -138,13 +123,9 @@ class ItemContent : AppCompatActivity() {
                     }
                 })
 
-
         }
 
-
     }
-
-
 
     private fun onClickListeners() {
         val left_top_text = findViewById(R.id.left_top_text) as TextView
@@ -153,7 +134,6 @@ class ItemContent : AppCompatActivity() {
             val intent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(intent)
         }
-
 
     }
 
@@ -170,8 +150,6 @@ class ItemContent : AppCompatActivity() {
         button_submit.isClickable = true
         login_text.text = "Komentovať"
     }
-
-
 
 
 

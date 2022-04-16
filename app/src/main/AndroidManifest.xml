@@ -15,6 +15,24 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BP_frontend">
         <activity
+            android:name=".UnconfirmedItemContentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AdminConfirmActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PersonalItemContent"
+            android:exported="false" />
+        <activity
+            android:name=".MyCollectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BirdSpeciesStatsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GlobalStatisticsActivity"
+            android:exported="false" />
+        <activity
             android:name=".NavigationActivity"
             android:exported="false"
             android:label="@string/title_activity_navigation"

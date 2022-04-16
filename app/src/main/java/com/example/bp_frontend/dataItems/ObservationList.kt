@@ -4,5 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class ObservationList(
     @SerializedName("obs")
-    var obs: List<ObservationDataItem>
+    var obs: List<ObservationDataItem>,
+
+    @SerializedName("paginator")
+    val paginator: Paginator
 )

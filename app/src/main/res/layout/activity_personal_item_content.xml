@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ItemContent">
+    tools:context=".PersonalItemContent">
 
     <TextView
         android:id="@+id/textView"
         style="@style/black_big_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pozorovanie"
+        android:text="Moje\npozorovanie"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
@@ -86,6 +87,7 @@
         app:layout_constraintGuide_percent="0.21" />
 
     <ScrollView
+        android:id="@+id/scrollView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
@@ -137,28 +139,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginRight="0dp"
-                    android:text="Spozoroval:"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/obs_author"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:minWidth="50dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -229,7 +209,7 @@
 
                 android:id="@+id/comments_id"
                 android:layout_width="match_parent"
-                android:layout_height="340dp"
+                android:layout_height="250dp"
                 android:layout_margin="0dp"
                 android:isScrollContainer="true"
                 android:padding="0dp"
@@ -242,6 +222,7 @@
 
 
         </LinearLayout>
+
 
     </ScrollView>
 
@@ -319,6 +300,37 @@
             app:layout_constraintStart_toStartOf="@+id/comment_button"
             app:layout_constraintTop_toTopOf="@+id/comment_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <View
+        android:id="@+id/delete_button"
+        android:layout_width="157dp"
+        android:layout_height="48dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/delete_button"
+
+
+        app:counterOverflowTextColor="@color/teal_200"
+
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+        tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vymazať pozorovanie"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/delete_button"
+            app:layout_constraintEnd_toEndOf="@+id/delete_button"
+            app:layout_constraintStart_toStartOf="@+id/delete_button"
+            app:layout_constraintTop_toTopOf="@+id/delete_button" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

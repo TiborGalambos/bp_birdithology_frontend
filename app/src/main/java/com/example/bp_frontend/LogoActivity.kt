@@ -43,7 +43,9 @@ class LogoActivity : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<WhoAmIDataItem?>, t: Throwable) {
-                    TODO("Not yet implemented")
+                    val intent = Intent(applicationContext, LogoActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
             })
 

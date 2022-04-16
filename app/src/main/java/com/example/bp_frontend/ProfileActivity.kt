@@ -6,10 +6,9 @@ import android.os.Bundle
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
-import com.example.bp_frontend.ListAdapter.ItemListAdapter
 import com.example.bp_frontend.ListAdapter.SmallItemListAdapter
 import com.example.bp_frontend.backendEndpoints.BackendApiClient
-import com.example.bp_frontend.dataItems.RecentObservationsDataItem
+import com.example.bp_frontend.dataItems.ObservationList
 import com.example.bp_frontend.loginLogic.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,11 +39,11 @@ class ProfileActivity : AppCompatActivity() {
         val profile_name = findViewById<TextView>(R.id.profile_name)
         profile_name.text = sessionManager.getUsername()
 
-        apiClient.getApiService(this@ProfileActivity).fetchUserObservations(token = "Token ${sessionManager.getToken()}")
-            .enqueue(object : Callback<RecentObservationsDataItem?> {
+        apiClient.getApiService(this@ProfileActivity).fetchUserObservations(page_number = 1, token = "Token ${sessionManager.getToken()}")
+            .enqueue(object : Callback<ObservationList?> {
                 override fun onResponse(
-                    call: Call<RecentObservationsDataItem?>,
-                    response: Response<RecentObservationsDataItem?>
+                    call: Call<ObservationList?>,
+                    response: Response<ObservationList?>
                 ) {
                     if(response.code() == 200){
                         fetchObservations(response)
@@ -54,7 +53,7 @@ class ProfileActivity : AppCompatActivity() {
                         Toast.makeText(applicationContext, "HALF GOOD ${response.code()}", Toast.LENGTH_SHORT)
                 }
 
-                override fun onFailure(call: Call<RecentObservationsDataItem?>, t: Throwable) {
+                override fun onFailure(call: Call<ObservationList?>, t: Throwable) {
                     Toast.makeText(applicationContext, "VERY BAD", Toast.LENGTH_SHORT)
                 }
             })
@@ -67,7 +66,7 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
-    private fun fetchObservations(response: Response<RecentObservationsDataItem?>) {
+    private fun fetchObservations(response: Response<ObservationList?>) {
         val items = response.body()
 
         val author = arrayOfNulls<String>(items!!.obs.size)

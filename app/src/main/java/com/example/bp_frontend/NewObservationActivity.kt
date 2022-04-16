@@ -54,6 +54,8 @@ class NewObservationActivity : AppCompatActivity() {
     lateinit var sessionManager: SessionManager
     private lateinit var apiClient: BackendApiClient
 
+    lateinit var cityName: String
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,13 +97,11 @@ class NewObservationActivity : AppCompatActivity() {
 
         location_button.setOnClickListener {
 
-            Log.d("my_debug", "$latitude, $longitude")
             val geocoder = Geocoder(this, Locale.getDefault())
             val addresses: List<android.location.Address> = geocoder.getFromLocation(latitude, longitude, 1)
-            Log.d("my_debug", "tu este ok ")
-            Log.d("my_debug", "$addresses")
-            val cityName: String  = addresses[0].subLocality
+            cityName = addresses[0].subLocality
             location_text.setText(cityName)
+            Log.d("my_debug", "$addresses")
         }
 
         button_next_step.setOnClickListener {
@@ -149,6 +149,7 @@ class NewObservationActivity : AppCompatActivity() {
                         bird_name = dropdown_menu.text.toString().replace("(^\\(|\\)$)", ""),
                         obs_x_coords = longitude.toFloat(),
                         obs_y_coords = latitude.toFloat(),
+                        obs_place = cityName
                     ).enqueue(object : Callback<ObservationDataItem?> {
 
                         override fun onResponse(
@@ -160,11 +161,6 @@ class NewObservationActivity : AppCompatActivity() {
                                 Toast.makeText(applicationContext,"Your bird was added.", Toast.LENGTH_LONG).show()
                                 startActivity(intent)
 
-
-                                // ---
-                                // Log
-                                // ---
-                                Toast.makeText(applicationContext," HALF SUCCESS ${response.code()}", Toast.LENGTH_SHORT).show()
                                 Log.d("my_debug", "${response.code()} <|> ${response.body()}")
                                 Log.d("my_debug", "token ${sessionManager.getToken()} \n " +
                                         "bird_count = ${number.text.toString()},\n" +
@@ -176,9 +172,6 @@ class NewObservationActivity : AppCompatActivity() {
 
                             else {
 
-                                // ---
-                                // Log
-                                // ---
                                 Toast.makeText(applicationContext," HALF SUCCESS ${response.code()}", Toast.LENGTH_SHORT).show()
                                 Log.d("my_debug", "${response.code()} <|> ${response.body()}")
                                 Log.d("my_debug", "token ${sessionManager.getToken()} \n " +
@@ -218,7 +211,8 @@ class NewObservationActivity : AppCompatActivity() {
                     bird_name = dropdown_menu.text.toString().replace("(^\\(|\\)$)", ""),
                     obs_x_coords = longitude.toFloat(),
                     obs_y_coords = latitude.toFloat(),
-                    bird_photo = part
+                    bird_photo = part,
+                    obs_place = cityName
                     ).enqueue(object : Callback<ObservationDataItem?> {
                     override fun onResponse(
                         call: Call<ObservationDataItem?>,
@@ -411,10 +405,10 @@ class NewObservationActivity : AppCompatActivity() {
 
         val right_top_text = findViewById(R.id.right_top_text) as TextView
 
-        right_top_text.setOnClickListener {
-            val intent = Intent(applicationContext, NewSimpleObservationActivity::class.java)
-            startActivity(intent)
-        }
+//        right_top_text.setOnClickListener {
+//            val intent = Intent(applicationContext, NewSimpleObservationActivity::class.java)
+//            startActivity(intent)
+//        }
     }
 
     private fun setBirdList() {

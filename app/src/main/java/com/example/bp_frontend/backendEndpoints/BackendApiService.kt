@@ -11,6 +11,11 @@ import retrofit2.http.*
 
 interface BackendApiService {
 
+
+    //    ---------------------------------------------
+    //    USER operations
+    //    ---------------------------------------------
+
     @FormUrlEncoded
     @POST("login/")
     fun login(
@@ -32,6 +37,21 @@ interface BackendApiService {
     ):Call<LoginResponse>
 
 
+    @GET("whoami/")
+    fun whoAmI(@Header("Authorization") token: String
+    ):Call<WhoAmIDataItem>
+
+
+    @GET("amiadmin/")
+    fun amIAdmin(@Header("Authorization") token: String
+    ):Call<AdminVerification>
+
+
+
+    //    ---------------------------------------------
+    //    Adding new OBSERVATIONS
+    //    ---------------------------------------------
+
     @Multipart
     @POST("observation/normal/")
     fun newNormalObservation(
@@ -43,19 +63,10 @@ interface BackendApiService {
         @Part("obs_x_coords") obs_x_coords: Float,
         @Part("obs_y_coords") obs_y_coords: Float,
 
+        @Part("obs_place") obs_place: String,
+
         @Part bird_photo: MultipartBody.Part
     ):Call<ObservationDataItem>
-
-
-    @Multipart
-    @POST("observation/newcomment/")
-    fun addNewComment(
-
-        @Header("Authorization") token: String,
-        @Part("comment") comment:String,
-        @Part("observation_id") observation_id:Int
-
-    ):Call<Comment>
 
 
     @Multipart
@@ -69,27 +80,98 @@ interface BackendApiService {
         @Part("obs_x_coords") obs_x_coords: Float,
         @Part("obs_y_coords") obs_y_coords: Float,
 
+        @Part("obs_place") obs_place: String,
+
     ):Call<ObservationDataItem>
 
 
-    @GET("observation/comments/")
+
+
+    //    ---------------------------------------------
+    //    Adding new COMMENT on observation
+    //    ---------------------------------------------
+
+    @Multipart
+    @POST("observation/newcomment/")
+    fun addNewComment(
+
+        @Header("Authorization") token: String,
+        @Part("comment") comment:String,
+        @Part("observation_id") observation_id:Int
+
+    ):Call<Comment>
+
+
+
+
+    //    ---------------------------------------------
+    //    Fetching OBSERVATIONS
+    //    ---------------------------------------------
+
+
+    @GET("observation/unconfirmed/{page_number}")
+    fun fetchUnconfirmedObservations(
+        @Path("page_number") page_number:Int,
+        @Header("Authorization") token: String,
+
+        ):Call<ObservationList>
+
+
+    @GET("observation/recent")
     fun fetchObservationsWithComments(
         @Header("Authorization") token: String,
 
         ):Call<ObservationList>
 
 
-
-    @GET("observation/user/")
+    @GET("observation/user/{page_number}")
     fun fetchUserObservations(
+        @Path("page_number") page_number:Int,
         @Header("Authorization") token: String,
 
-        ):Call<RecentObservationsDataItem>
+        ):Call<ObservationList>
 
 
-    @GET("whoami/")
-    fun whoAmI(@Header("Authorization") token: String
-    ):Call<WhoAmIDataItem>
+
+
+    //    ---------------------------------------------
+    //    Fetching STAT data
+    //    ---------------------------------------------
+
+    @GET("stats/sum/")
+    fun fetchStatsSum(
+        @Header("Authorization") token: String,
+
+        ):Call<GlobStatsSum>
+
+
+    @GET("stats/sum/personal")
+    fun fetchStatsSumPersonal(
+        @Header("Authorization") token: String,
+
+        ):Call<GlobStatsSum>
+
+
+    @GET("stats/birds/")
+    fun fetchBirdStatsSum(
+        @Header("Authorization") token: String,
+
+        ):Call<BirdSpeciesStats>
+
+
+
+    //    ---------------------------------------------
+    //    Admin UPDATE observation
+    //    ---------------------------------------------
+
+    @Multipart
+    @PUT("observation/unconfirmed/update/{obs_number}")
+    fun updateObservation(
+        @Path("obs_number") obs_number:Int,
+        @Part("bird_name") bird_name: String,
+        @Header("Authorization") token: String,
+        ):Call<UpdateConfirm>
+
 
 
 

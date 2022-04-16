@@ -44,8 +44,8 @@ class CommentListAdapter(
         com_authors = thisView.findViewById(R.id.com_author)
         comments = thisView.findViewById(R.id.comment)
 
-        com_authors.text = com_author!![p0]
-        comments.text = comment!![p0]
+        com_authors.text = com_author!![p0].replace("(^\\(|\\)$)", "").replace("\"", "")
+        comments.text = comment!![p0].replace("(^\\(|\\)$)", "")
 
         return thisView
     }

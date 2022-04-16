@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ItemContent">
+    tools:context=".UnconfirmedItemContentActivity">
 
     <TextView
         android:id="@+id/textView"
         style="@style/black_big_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pozorovanie"
+        android:text="Nepotvrdené\npozorovanie"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
@@ -86,10 +88,12 @@
         app:layout_constraintGuide_percent="0.21" />
 
     <ScrollView
-        android:layout_width="wrap_content"
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="@+id/guideline3"
-        tools:ignore="MissingConstraints">
+        tools:ignore="MissingConstraints"
+        android:orientation="horizontal">
 
 
         <LinearLayout
@@ -108,15 +112,6 @@
             app:layout_constraintTop_toTopOf="@+id/guideline3"
             tools:ignore="MissingConstraints">
 
-            <!--        <LinearLayout-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:orientation="horizontal"/>-->
-
-            <!--        <LinearLayout-->
-            <!--            android:layout_width="match_parent"-->
-            <!--            android:layout_height="wrap_content"-->
-            <!--            android:orientation="horizontal"/>-->
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -126,7 +121,7 @@
                 <ImageView
                     android:id="@+id/photo_content"
                     android:layout_width="wrap_content"
-                    android:layout_height="100dp"
+                    android:layout_height="250dp"
                     android:layout_marginBottom="30dp"
                     android:adjustViewBounds="true"
                     android:clipToOutline="true" />
@@ -137,28 +132,6 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="1dp"
-                    android:layout_marginRight="0dp"
-                    android:text="Spozoroval:"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:id="@+id/obs_author"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:minWidth="50dp"
-                    android:textColor="@android:color/black"
-                    android:textSize="14sp" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -225,71 +198,73 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <ListView
-
-                android:id="@+id/comments_id"
-                android:layout_width="match_parent"
-                android:layout_height="340dp"
-                android:layout_margin="0dp"
-                android:isScrollContainer="true"
-                android:padding="0dp"
-                android:scrollbarSize="10dp"
-                app:layout_constraintBottom_toTopOf="@+id/guideline4"
-                app:layout_constraintEnd_toStartOf="@id/guideline8"
-                app:layout_constraintStart_toStartOf="@+id/guideline7"
-                app:layout_constraintTop_toBottomOf="@id/guideline2"
-                tools:ignore="MissingConstraints" />
-
 
         </LinearLayout>
 
+
     </ScrollView>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/comment_bar"
-        android:layout_width="341dp"
-        android:layout_height="50dp"
-        android:hint="Komentár"
-        android:outlineAmbientShadowColor="@color/black"
-        android:scrollbarSize="40dp"
-        app:boxBackgroundColor="#FFF"
-        app:boxStrokeColor="#FFF"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:counterEnabled="false"
-        app:counterMaxLength="32"
-        app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@+id/constraintLayout2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        >
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/comment_bar1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/search_bg"
-            android:outlineProvider="none">
-
-        </com.google.android.material.textfield.TextInputEditText>
-
-
-    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/con1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="43dp">
+        app:layout_constraintBottom_toTopOf="@+id/con2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        android:layout_marginBottom="10dp"
+        android:background="@color/white">
+
+        <TextView
+            android:id="@+id/loading"
+            android:layout_width="341dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg"
+            android:paddingLeft="12dp"
+            android:paddingTop="15dp"
+            android:paddingRight="12dp"
+            android:text="Načítavam druhy.."
+            android:textSize="16sp"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:ignore="MissingConstraints">
+
+        </TextView>
+
+
+        <AutoCompleteTextView
+            android:id="@+id/dropdown_menu"
+            android:layout_width="341dp"
+            android:layout_height="50dp"
+            android:background="@drawable/bg"
+            android:completionHint="Druhy"
+            android:completionThreshold="0"
+            android:hint="Druhy"
+            android:paddingLeft="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/white"
+        android:id="@+id/con2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/guideline4"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints">
 
 
         <View
-            android:id="@+id/comment_button"
+            android:id="@+id/confirm_button"
             android:layout_width="157dp"
             android:layout_height="48dp"
             android:layout_alignParentLeft="true"
@@ -297,28 +272,50 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:background="@drawable/add_photo_button"
-            android:scaleX="0.7"
-            android:scaleY="0.7"
+
+
             app:counterOverflowTextColor="@color/teal_200"
-
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
 
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Pridať"
+            android:text="Potvrdiť druh"
             android:textColor="@color/white"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/comment_button"
-            app:layout_constraintEnd_toEndOf="@+id/comment_button"
-            app:layout_constraintStart_toStartOf="@+id/comment_button"
-            app:layout_constraintTop_toTopOf="@+id/comment_button" />
+            app:layout_constraintBottom_toBottomOf="@+id/confirm_button"
+            app:layout_constraintEnd_toEndOf="@+id/confirm_button"
+            app:layout_constraintStart_toStartOf="@+id/confirm_button"
+            app:layout_constraintTop_toTopOf="@+id/confirm_button" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/input1"-->
+<!--        android:layout_width="341dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:focusable="true"-->
+<!--        android:focusableInTouchMode="true"-->
+<!--        android:hint="Druhy"-->
+<!--        android:outlineAmbientShadowColor="@color/black"-->
+<!--        android:scrollbarSize="40dp"-->
+<!--        app:boxBackgroundColor="#FFF"-->
+<!--        app:boxStrokeColor="#FFF"-->
+<!--        app:boxStrokeWidth="0dp"-->
+<!--        app:boxStrokeWidthFocused="0dp"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/guideline7"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/scrollView2">-->
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
