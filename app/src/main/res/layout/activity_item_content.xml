@@ -289,7 +289,7 @@
 
 
         <View
-            android:id="@+id/comment_button"
+            android:id="@+id/play_button"
             android:layout_width="157dp"
             android:layout_height="48dp"
             android:layout_alignParentLeft="true"
@@ -314,10 +314,10 @@
             android:text="Pridať"
             android:textColor="@color/white"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/comment_button"
-            app:layout_constraintEnd_toEndOf="@+id/comment_button"
-            app:layout_constraintStart_toStartOf="@+id/comment_button"
-            app:layout_constraintTop_toTopOf="@+id/comment_button" />
+            app:layout_constraintBottom_toBottomOf="@+id/play_button"
+            app:layout_constraintEnd_toEndOf="@+id/play_button"
+            app:layout_constraintStart_toStartOf="@+id/play_button"
+            app:layout_constraintTop_toTopOf="@+id/play_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

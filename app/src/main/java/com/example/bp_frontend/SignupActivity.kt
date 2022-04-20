@@ -26,7 +26,7 @@ class SignupActivity : AppCompatActivity() {
         buttonListeners()
 
         val text_signup = findViewById(R.id.sign_up) as TextView
-        val button_signup = findViewById(R.id.button_next_step) as View
+        val button_signup = findViewById(R.id.button_send) as View
 
         button_signup.setOnClickListener {
 
@@ -50,19 +50,20 @@ class SignupActivity : AppCompatActivity() {
                     response: Response<RegisterResponse?>
                 ) {
                     if(response.code() == 200){
-                        Toast.makeText(applicationContext,"Your registration was successful.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext,"Registrácia bola úspešná.", Toast.LENGTH_SHORT).show()
 
                         val intent = Intent(applicationContext, LoginActivity::class.java)
                         startActivity(intent)
+                        finish()
                     }
                     if(response.code() == 400){
-                        Toast.makeText(applicationContext,"We are sorry, this username is taken.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext,"Toto meno je už obsadené.", Toast.LENGTH_SHORT).show()
                         setOriginalProperty(button_signup, text_signup)
                     }
                 }
 
                 override fun onFailure(call: Call<RegisterResponse?>, t: Throwable) {
-                    Toast.makeText(applicationContext,"Something went wrong, try again later.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext,"Niečo sa pokazilo.", Toast.LENGTH_SHORT).show()
                     setOriginalProperty(button_signup, text_signup)
                 }
             })
@@ -77,6 +78,7 @@ class SignupActivity : AppCompatActivity() {
 
             val intent = Intent(applicationContext, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         val cancel_button = findViewById(R.id.left_top_text) as TextView
@@ -86,6 +88,7 @@ class SignupActivity : AppCompatActivity() {
 
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+            finish()
         }
     }
 
@@ -98,13 +101,13 @@ class SignupActivity : AppCompatActivity() {
         text_signup: TextView
     ) {
         if (username.isEmpty()) {
-            name_bar.error = "Username required"
+            name_bar.error = "Meno je povinné"
             name_bar.requestFocus()
             setOriginalProperty(button_signup, text_signup)
         }
 
         if (password.isEmpty()) {
-            password_bar.error = "Password required"
+            password_bar.error = "Heslo je povinné"
             password_bar.requestFocus()
             setOriginalProperty(button_signup, text_signup)
         }
@@ -114,14 +117,14 @@ class SignupActivity : AppCompatActivity() {
         button_signup.setBackgroundResource(R.drawable.button_prim_dark) // set dark color
         button_signup.isEnabled = false
         button_signup.isClickable = false
-        text_signup.text = "Loading"
+        text_signup.text = "Načítavam"
     }
 
     private fun setOriginalProperty(button_signup: View, text_signup: TextView) {
         button_signup.setBackgroundResource(R.drawable.button_prim) // set orginal color
         button_signup.isEnabled = true
         button_signup.isClickable = true
-        text_signup.text = "Sign Up"
+        text_signup.text = "Registrovať sa"
     }
 
 }

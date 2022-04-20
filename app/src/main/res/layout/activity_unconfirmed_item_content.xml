@@ -197,6 +197,127 @@
                     android:textColor="@android:color/black"
                     android:textSize="14sp" />
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/simple_descriptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="Veľkosť:"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/obs_size"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="50dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="Farba:"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/obs_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="50dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="Zobák:"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/obs_beak"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minWidth="50dp"
+                    android:textColor="@android:color/black"
+                    android:textSize="14sp" />
+            </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/recording"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:text="Nahrávka:"
+                    android:textSize="16sp"
+                    android:gravity="center_vertical"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:id="@+id/play_button"
+                        android:layout_width="157dp"
+                        android:layout_height="48dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:background="@drawable/add_photo_button"
+                        android:scaleX="0.7"
+                        android:scaleY="0.7"
+                        app:counterOverflowTextColor="@color/teal_200"
+
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:ignore="MissingConstraints" />
+
+                    <ImageView
+                        android:id="@+id/play_icon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/ic_baseline_play_arrow_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="@+id/play_button"
+                        app:layout_constraintStart_toStartOf="@+id/play_button"
+                        app:layout_constraintTop_toTopOf="@+id/play_button" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
 
 
         </LinearLayout>
@@ -272,14 +393,15 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
             android:background="@drawable/add_photo_button"
-
+            android:layout_marginRight="10dp"
 
             app:counterOverflowTextColor="@color/teal_200"
             app:layout_constraintBottom_toBottomOf="parent"
 
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints" />
+            tools:ignore="MissingConstraints"
+            />
 
         <TextView
             android:id="@+id/textView3"
@@ -293,7 +415,42 @@
             app:layout_constraintStart_toStartOf="@+id/confirm_button"
             app:layout_constraintTop_toTopOf="@+id/confirm_button" />
 
+
+        <View
+            android:id="@+id/decline_button"
+            android:layout_width="157dp"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/delete_button"
+
+            android:layout_marginLeft="10dp"
+
+
+            app:counterOverflowTextColor="@color/teal_200"
+            app:layout_constraintBottom_toBottomOf="parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vymazať pozorovanie"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/decline_button"
+            app:layout_constraintEnd_toEndOf="@+id/decline_button"
+            app:layout_constraintStart_toStartOf="@+id/decline_button"
+            app:layout_constraintTop_toTopOf="@+id/decline_button" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 <!--    <com.google.android.material.textfield.TextInputLayout-->

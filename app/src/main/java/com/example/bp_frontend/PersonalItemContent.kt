@@ -65,7 +65,7 @@ class PersonalItemContent : AppCompatActivity() {
         val comments_id = findViewById<ListView>(R.id.comments_id)
         comments_id.adapter = com_adapter
 
-        val comment_button = findViewById(R.id.comment_button) as View
+        val comment_button = findViewById(R.id.play_button) as View
 
         val comment_bar = findViewById<TextInputEditText>(R.id.comment_bar1)
 
@@ -133,6 +133,8 @@ class PersonalItemContent : AppCompatActivity() {
         left_top_text.setOnClickListener {
             val intent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+            finish()
         }
 
     }

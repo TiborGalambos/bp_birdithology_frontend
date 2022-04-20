@@ -3,12 +3,15 @@ package com.example.bp_frontend
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ListView
 import android.widget.TextView
 import android.widget.Toast
 import com.example.bp_frontend.ListAdapter.BirdCountListAdapter
 import com.example.bp_frontend.backendEndpoints.BackendApiClient
 import com.example.bp_frontend.dataItems.BirdSpeciesStats
+import com.example.bp_frontend.dataItems.Locations
+import com.example.bp_frontend.dataItems.ObservationList
 import com.example.bp_frontend.loginLogic.SessionManager
 import retrofit2.Call
 import retrofit2.Callback
@@ -20,6 +23,9 @@ class BirdSpeciesStatsActivity : AppCompatActivity() {
     private lateinit var apiClient: BackendApiClient
     lateinit var ids:Array<String?>
 
+//    lateinit var locations_x: DoubleArray
+//    lateinit var locations_y: DoubleArray
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_bird_species_stats)
@@ -28,8 +34,10 @@ class BirdSpeciesStatsActivity : AppCompatActivity() {
         val back_button = findViewById<TextView>(R.id.left_top_text)
 
         back_button.setOnClickListener {
-            val intent = Intent(this@BirdSpeciesStatsActivity, HomeActivity::class.java)
+            val intent = Intent(this@BirdSpeciesStatsActivity, GlobalStatisticsActivity::class.java)
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+            finish()
         }
 
 
@@ -78,6 +86,19 @@ class BirdSpeciesStatsActivity : AppCompatActivity() {
         )
         val list_id = findViewById<ListView>(R.id.list_id_spec)
         list_id.adapter = adapter
+
+
+        list_id.setOnItemClickListener{ _, _, position, _ ->
+
+            val birdName = items.birds[position].bird_name.replace("\"", "")
+
+            val intent2 = Intent(this@BirdSpeciesStatsActivity, MapsActivity::class.java)
+            intent2.putExtra("bird_name", birdName)
+            intent2.putExtra("showHeatmap", false)
+            startActivity(intent2)
+
+        }
+
     }
 
 }

@@ -24,7 +24,6 @@ import java.util.ArrayList
 
 class GlobalStatisticsActivity : AppCompatActivity() {
 
-//    val items: MutableList<String> = ArrayList()
 
     private lateinit var sessionManager: SessionManager
     private lateinit var apiClient: BackendApiClient
@@ -45,7 +44,6 @@ class GlobalStatisticsActivity : AppCompatActivity() {
         apiClient.getApiService(this@GlobalStatisticsActivity).fetchStatsSumPersonal(token = "Token ${sessionManager.getToken()}").enqueue(object : Callback<GlobStatsSum?> {
             override fun onResponse(call: Call<GlobStatsSum?>, response: Response<GlobStatsSum?>) {
 
-                Log.d("my_debug", "${response.body()?.sum?.bird_count__sum}")
                 if (response.code() == 200)
                 {
                     Log.d("my_debug", "${response.body()?.sum?.bird_count__sum}")
@@ -80,7 +78,10 @@ class GlobalStatisticsActivity : AppCompatActivity() {
 
         back_button.setOnClickListener {
             val intent = Intent(this@GlobalStatisticsActivity, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+            finish()
         }
 
 

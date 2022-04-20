@@ -151,7 +151,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/button_next_step"
+        android:id="@+id/button_send"
         android:layout_width="343dp"
         android:layout_height="51dp"
         android:layout_alignParentLeft="true"
@@ -176,10 +176,10 @@
         android:text="Apply"
         android:textSize="20dp"
         android:textAppearance="@style/sign_up"
-        app:layout_constraintBottom_toBottomOf="@+id/button_next_step"
-        app:layout_constraintEnd_toEndOf="@+id/button_next_step"
-        app:layout_constraintStart_toStartOf="@+id/button_next_step"
-        app:layout_constraintTop_toTopOf="@+id/button_next_step" />
+        app:layout_constraintBottom_toBottomOf="@+id/button_send"
+        app:layout_constraintEnd_toEndOf="@+id/button_send"
+        app:layout_constraintStart_toStartOf="@+id/button_send"
+        app:layout_constraintTop_toTopOf="@+id/button_send" />
 
     <!-- BG -->
 

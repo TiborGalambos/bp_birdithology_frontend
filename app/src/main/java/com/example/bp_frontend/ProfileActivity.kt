@@ -27,7 +27,10 @@ class ProfileActivity : AppCompatActivity() {
         val left_top_text = findViewById<TextView>(R.id.left_top_text)
         left_top_text.setOnClickListener{
             val intent = Intent(applicationContext, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+            finish()
 
         }
 
@@ -37,26 +40,31 @@ class ProfileActivity : AppCompatActivity() {
         sessionManager = SessionManager(this)
 
         val profile_name = findViewById<TextView>(R.id.profile_name)
-        profile_name.text = sessionManager.getUsername()
+        profile_name.text = sessionManager.getUsername().toString()
 
-        apiClient.getApiService(this@ProfileActivity).fetchUserObservations(page_number = 1, token = "Token ${sessionManager.getToken()}")
-            .enqueue(object : Callback<ObservationList?> {
-                override fun onResponse(
-                    call: Call<ObservationList?>,
-                    response: Response<ObservationList?>
-                ) {
-                    if(response.code() == 200){
-                        fetchObservations(response)
+        val account_type = findViewById<TextView>(R.id.account_type)
+        account_type.text = sessionManager.getUserType().toString()
 
-                    }
-                    if(response.code() != 200)
-                        Toast.makeText(applicationContext, "HALF GOOD ${response.code()}", Toast.LENGTH_SHORT)
-                }
 
-                override fun onFailure(call: Call<ObservationList?>, t: Throwable) {
-                    Toast.makeText(applicationContext, "VERY BAD", Toast.LENGTH_SHORT)
-                }
-            })
+
+//        apiClient.getApiService(this@ProfileActivity).fetchUserObservations(page_number = 1, token = "Token ${sessionManager.getToken()}")
+//            .enqueue(object : Callback<ObservationList?> {
+//                override fun onResponse(
+//                    call: Call<ObservationList?>,
+//                    response: Response<ObservationList?>
+//                ) {
+//                    if(response.code() == 200){
+//                        fetchObservations(response)
+//
+//                    }
+//                    if(response.code() != 200)
+//                        Toast.makeText(applicationContext, "HALF GOOD ${response.code()}", Toast.LENGTH_SHORT)
+//                }
+//
+//                override fun onFailure(call: Call<ObservationList?>, t: Throwable) {
+//                    Toast.makeText(applicationContext, "VERY BAD", Toast.LENGTH_SHORT)
+//                }
+//            })
 
 
 

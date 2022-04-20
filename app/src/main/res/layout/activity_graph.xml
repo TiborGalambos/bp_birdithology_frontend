@@ -1,22 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BirdSpeciesStatsActivity">
+    tools:context=".MapsActivity">
 
     <TextView
         android:id="@+id/textView"
         style="@style/black_big_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pozorované\ndruhy"
         android:gravity="center"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        android:text="Načítavam"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline5"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
         app:layout_constraintVertical_bias="0.613" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -87,88 +88,71 @@
         app:layout_constraintGuide_percent="0.21" />
 
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_margin="32dp"
-        android:orientation="vertical"
-        android:outlineAmbientShadowColor="@color/nature_green"
-        android:outlineSpotShadowColor="@color/black"
-        android:padding="20dp"
-
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline3"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        tools:ignore="MissingConstraints" />
 
 
-
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="1dp"
-                android:layout_marginRight="0dp"
-                android:layout_marginBottom="13dp"
-                android:text="Počet pozorovaní podľa druhu"
-                android:textSize="16sp" />
-
-
-        </LinearLayout>
-
-        <ListView
-
-            android:id="@+id/list_id_spec"
-            android:layout_width="match_parent"
-            android:layout_height="500dp"
-            android:scrollbarSize="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline4"
-            app:layout_constraintStart_toStartOf="@+id/guideline7"
-            app:layout_constraintTop_toBottomOf="@id/guideline2"
-            app:layout_constraintEnd_toStartOf="@id/guideline8"
-            android:padding="0dp"
-            android:layout_margin="0dp"
-            tools:ignore="MissingConstraints" />
-
-
-
-
-
-
-    </LinearLayout>
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="30dp"
-        >
+        tools:ignore="MissingConstraints">
+
+        <View
+            android:id="@+id/button1"
+
+            android:layout_width="157dp"
+            android:layout_height="48dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/add_photo_button"
+
+            app:counterOverflowTextColor="@color/teal_200"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
 
         <TextView
-            android:layout_width="match_parent"
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Vybrať"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/button1"
+            app:layout_constraintEnd_toEndOf="@+id/button1"
+            app:layout_constraintStart_toStartOf="@+id/button1"
+            app:layout_constraintTop_toTopOf="@+id/button1" />
+
+
+        <EditText
+            android:id="@+id/year_picker"
+            android:layout_width="130dp"
             android:layout_height="match_parent"
-            android:layout_marginEnd="1dp"
-            android:layout_marginRight="0dp"
-            android:layout_marginBottom="13dp"
-            android:text="Kliknutím na druh sa zobrazí mapa s miestami, kde bol vybraný druhy videný"
-            android:textSize="16sp" />
+            android:hint="  Vyberte rok"
+            android:inputType="numberDecimal"
 
-
-    </LinearLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

@@ -1,6 +1,7 @@
 package com.example.bp_frontend
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -8,6 +9,7 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationManager
+import android.media.MediaRecorder
 import android.net.Uri
 import android.os.Bundle
 import android.provider.Settings
@@ -16,9 +18,9 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
+import androidx.core.net.toUri
 import androidx.core.view.isVisible
 import com.example.bp_frontend.backendEndpoints.BackendApiClient
-import com.example.bp_frontend.backendEndpoints.NormalObservationResponse
 import com.example.bp_frontend.dataItems.EbirdDataItem
 import com.example.bp_frontend.dataItems.ObservationDataItem
 import com.example.bp_frontend.loginLogic.SessionManager
@@ -26,7 +28,6 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody.Part.Companion.createFormData
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -36,15 +37,19 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.io.File
+import java.io.IOException
+import java.text.SimpleDateFormat
 import java.util.*
 
 
 const val BASE_URL = "https://api.ebird.org/v2/"
+const val REQ_CODE = 200
 
 class NewObservationActivity : AppCompatActivity() {
 
     val items: MutableList<String> = ArrayList()
     lateinit var file_path: Uri
+    lateinit var media_file_path: Uri
     var code: Int = 0
 
     private var latitude:Double = 0.0
@@ -56,16 +61,45 @@ class NewObservationActivity : AppCompatActivity() {
 
     lateinit var cityName: String
 
+    private var permissions = arrayOf(Manifest.permission.RECORD_AUDIO)
+    private var permissionGranted = false
+
+    private lateinit var recorder: MediaRecorder
+
+    private var dirPath = ""
+    private var mediaFilename = ""
+
+    private var isRecordingActive = false
+
+
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_new_observation)
 
-        val bird_list_bar = findViewById(R.id.input1) as TextInputLayout
+        val audio_button = findViewById<View>(R.id.audio_button)
+
+        permissionGranted = ActivityCompat.checkSelfPermission(this, permissions[0]) == PackageManager.PERMISSION_GRANTED
+
+        if(!permissionGranted)
+            ActivityCompat.requestPermissions(this, permissions, REQ_CODE)
+
+
+        audio_button.setOnClickListener {
+            when{
+                isRecordingActive ->stopRecorder()
+                else -> startRecording()
+            }
+        }
+
+
+//        val bird_list_bar = findViewById(R.id.input1) as TextInputLayout
 
         val dropdown_menu = findViewById(R.id.dropdown_menu) as AutoCompleteTextView
         dropdown_menu.isVisible = false
-        dropdown_menu.inputType = 0
+//        dropdown_menu.inputType = 0
 
         val loading = findViewById<TextView>(R.id.loading)
         loading.isVisible = true
@@ -74,12 +108,13 @@ class NewObservationActivity : AppCompatActivity() {
         setBirdList()
         onClickListeners()
 
-        val button_next_step = findViewById<RelativeLayout>(R.id.button_next_step)
-        val photo_button = findViewById<View>(R.id.add_photo_button)
+//        val button_next_step = findViewById<RelativeLayout>(R.id.button_next_step)
+        val photo_button = findViewById<View>(R.id.photo_button)
         val location_button = findViewById<View>(R.id.get_location)
         val number = findViewById<TextInputEditText>(R.id.decimal)
         val location_text = findViewById<TextInputEditText>(R.id.loc_text)
         val submit_button = findViewById<RelativeLayout>(R.id.button_send)
+
         location_client = LocationServices.getFusedLocationProviderClient(this)
         photo_button.isClickable=true
 
@@ -99,20 +134,9 @@ class NewObservationActivity : AppCompatActivity() {
 
             val geocoder = Geocoder(this, Locale.getDefault())
             val addresses: List<android.location.Address> = geocoder.getFromLocation(latitude, longitude, 1)
-            cityName = addresses[0].subLocality
+            cityName = addresses[0].subAdminArea
             location_text.setText(cityName)
             Log.d("my_debug", "$addresses")
-        }
-
-        button_next_step.setOnClickListener {
-
-            if (checkEmptyFields(dropdown_menu, number)) return@setOnClickListener
-
-            val intent = Intent(this, NewObservationPickTimeActivity::class.java)
-            intent.putExtra("bird_name",dropdown_menu.text.toString())
-            intent.putExtra("file_path",file_path.toString())
-            intent.putExtra("number_of_birds",number.text.toString())
-            startActivity(intent)
         }
 
 
@@ -131,11 +155,10 @@ class NewObservationActivity : AppCompatActivity() {
 
 
             // -------------------------------
-            // Observation WITHOUT photo added
+            // Observation WITHOUT photo WITHOUT voice
             // -------------------------------
 
-            if(this::file_path.isInitialized == false){
-                Log.d("my_debug", "it is null")
+            if(!this::file_path.isInitialized && !this::media_file_path.isInitialized){
 
                 apiClient = BackendApiClient()
                 sessionManager = SessionManager(this)
@@ -143,7 +166,7 @@ class NewObservationActivity : AppCompatActivity() {
                 val intent = Intent(applicationContext, HomeActivity::class.java)
 
                 apiClient.getApiService(this)
-                    .newNormalObservationWithoutMedia(
+                    .newNormalObservationNoPhotoNoVoice(
                         token = "Token ${sessionManager.getToken()}",
                         bird_count = number.text.toString().toInt(),
                         bird_name = dropdown_menu.text.toString().replace("(^\\(|\\)$)", ""),
@@ -158,60 +181,53 @@ class NewObservationActivity : AppCompatActivity() {
                         )
                         {
                             if(response.code() == 200) {
-                                Toast.makeText(applicationContext,"Your bird was added.", Toast.LENGTH_LONG).show()
+                                Toast.makeText(applicationContext,"Pozorovanie bolo pridané.", Toast.LENGTH_LONG).show()
+                                intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                                 startActivity(intent)
-
-                                Log.d("my_debug", "${response.code()} <|> ${response.body()}")
-                                Log.d("my_debug", "token ${sessionManager.getToken()} \n " +
-                                        "bird_count = ${number.text.toString()},\n" +
-                                        "bird_name = ${dropdown_menu.text.toString()},\n" +
-                                        "obs_x_coords = $longitude,\n" +
-                                        "obs_y_coords = $latitude,\n")
-
+                                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+                                finish()
                             }
 
                             else {
 
                                 Toast.makeText(applicationContext," HALF SUCCESS ${response.code()}", Toast.LENGTH_SHORT).show()
-                                Log.d("my_debug", "${response.code()} <|> ${response.body()}")
-                                Log.d("my_debug", "token ${sessionManager.getToken()} \n " +
-                                        "bird_count = ${number.text.toString()},\n" +
-                                        "bird_name = ${dropdown_menu.text.toString()},\n" +
-                                        "obs_x_coords = $longitude,\n" +
-                                        "obs_y_coords = $latitude,\n")
                             }
                         }
 
                         override fun onFailure(call: Call<ObservationDataItem?>, t: Throwable) {
 
                             Toast.makeText(applicationContext, "FAIL", Toast.LENGTH_SHORT).show()
-                            Log.d("my_debug", "${t.message}")
                         }
                     })
             }
 
             // ----------------------------
-            // Observation WITH photo added
+            // Observation WITH photo WITH voice
             // ----------------------------
 
-            if(this::file_path.isInitialized){
+            if(this::file_path.isInitialized && this::media_file_path.isInitialized){
                 val file = File(file_path.path)
                 val requestbody = file.asRequestBody("image/*".toMediaTypeOrNull())
-
                 val part = createFormData("bird_photo", file.name, requestbody)
+
+                val recording_file = File(media_file_path.path)
+                val recoridng_requestbody = recording_file.asRequestBody("recording/*".toMediaTypeOrNull())
+                val record_part = createFormData("bird_recording", recording_file.name, recoridng_requestbody)
+
 
                 Log.d("my_debug", "$file_path")
 
                 apiClient = BackendApiClient()
                 sessionManager = SessionManager(this)
                 val intent = Intent(applicationContext, HomeActivity::class.java)
-                apiClient.getApiService(this).newNormalObservation(
+                apiClient.getApiService(this).newNormalObservationWithPhotoWithVoice(
                     token = "Token ${sessionManager.getToken()}",
                     bird_count = number.text.toString().toInt(),
                     bird_name = dropdown_menu.text.toString().replace("(^\\(|\\)$)", ""),
                     obs_x_coords = longitude.toFloat(),
                     obs_y_coords = latitude.toFloat(),
                     bird_photo = part,
+                    bird_recording = record_part,
                     obs_place = cityName
                     ).enqueue(object : Callback<ObservationDataItem?> {
                     override fun onResponse(
@@ -219,55 +235,132 @@ class NewObservationActivity : AppCompatActivity() {
                         response: Response<ObservationDataItem?>
                     ) {
                         if(response.code() == 200) {
-                            Toast.makeText(applicationContext,"Your bird was added.", Toast.LENGTH_LONG).show()
+                            Toast.makeText(applicationContext,"Pozorovanie bolo pridané.", Toast.LENGTH_LONG).show()
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)
-
-                            Log.d("my_debug", "${response.code()} <|> ${response.body()}")
-                            Log.d("my_debug", "token ${sessionManager.getToken()} \n " +
-                                    "bird_count = ${number.text.toString()},\n" +
-                                    "bird_name = ${dropdown_menu.text.toString()},\n" +
-                                    "                obs_x_coords = $longitude,\n" +
-                                    "                obs_y_coords = $latitude,\n" +
-                                    "                bird_photo = $part")
-
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+                            finish()
                         }
-
                         else {
                             Toast.makeText(applicationContext," HALF SUCCESS ${response.code()}", Toast.LENGTH_SHORT).show()
-                            Log.d("my_debug", "${response.code()} <|> ${response.body()}")
-                            Log.d("my_debug", "token ${sessionManager.getToken()} \n " +
-                                    "bird_count = ${number.text.toString()},\n" +
-                                    "bird_name = ${dropdown_menu.text.toString()},\n" +
-                                    "                obs_x_coords = $longitude,\n" +
-                                    "                obs_y_coords = $latitude,\n" +
-                                    "                bird_photo = $part")
                         }
                     }
-
                     override fun onFailure(call: Call<ObservationDataItem?>, t: Throwable) {
-
                         Toast.makeText(applicationContext, "FAIL", Toast.LENGTH_SHORT).show()
-                        Log.d("my_debug", "${t.message}")
                     }
                 })
             }
+
+            // ----------------------------
+            // Observation WITH photo WITHOUT voice
+            // ----------------------------
+
+            if(this::file_path.isInitialized && !this::media_file_path.isInitialized){
+                val file = File(file_path.path)
+                val requestbody = file.asRequestBody("image/*".toMediaTypeOrNull())
+                val part = createFormData("bird_photo", file.name, requestbody)
+
+                Log.d("my_debug", "$file_path")
+
+                apiClient = BackendApiClient()
+                sessionManager = SessionManager(this)
+                val intent = Intent(applicationContext, HomeActivity::class.java)
+                apiClient.getApiService(this).newNormalObservationWithPhotoNoVoice(
+                    token = "Token ${sessionManager.getToken()}",
+                    bird_count = number.text.toString().toInt(),
+                    bird_name = dropdown_menu.text.toString().replace("(^\\(|\\)$)", ""),
+                    obs_x_coords = longitude.toFloat(),
+                    obs_y_coords = latitude.toFloat(),
+                    bird_photo = part,
+                    obs_place = cityName
+                ).enqueue(object : Callback<ObservationDataItem?> {
+                    override fun onResponse(
+                        call: Call<ObservationDataItem?>,
+                        response: Response<ObservationDataItem?>
+                    ) {
+                        if(response.code() == 200) {
+                            Toast.makeText(applicationContext,"Pozorovanie bolo pridané.", Toast.LENGTH_LONG).show()
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+                            finish()
+                        }
+                        else {
+                            Toast.makeText(applicationContext," HALF SUCCESS ${response.code()}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    override fun onFailure(call: Call<ObservationDataItem?>, t: Throwable) {
+                        Toast.makeText(applicationContext, "FAIL", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+
+
+            // ----------------------------
+            // Observation WITHOUT photo WITH voice
+            // ----------------------------
+
+            if(!this::file_path.isInitialized && this::media_file_path.isInitialized){
+
+                val recording_file = File(media_file_path.path)
+                val recoridng_requestbody = recording_file.asRequestBody("recording/*".toMediaTypeOrNull())
+                val record_part = createFormData("bird_recording", recording_file.name, recoridng_requestbody)
+
+
+
+                apiClient = BackendApiClient()
+                sessionManager = SessionManager(this)
+                val intent = Intent(applicationContext, HomeActivity::class.java)
+                apiClient.getApiService(this).newNormalObservationNoPhotoWithVoice(
+                    token = "Token ${sessionManager.getToken()}",
+                    bird_count = number.text.toString().toInt(),
+                    bird_name = dropdown_menu.text.toString().replace("(^\\(|\\)$)", ""),
+                    obs_x_coords = longitude.toFloat(),
+                    obs_y_coords = latitude.toFloat(),
+                    bird_recording = record_part,
+                    obs_place = cityName
+                ).enqueue(object : Callback<ObservationDataItem?> {
+                    override fun onResponse(
+                        call: Call<ObservationDataItem?>,
+                        response: Response<ObservationDataItem?>
+                    ) {
+                        if(response.code() == 200) {
+                            Toast.makeText(applicationContext,"Pozorovanie bolo pridané.", Toast.LENGTH_LONG).show()
+                            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+                            finish()
+                        }
+                        else {
+                            Toast.makeText(applicationContext," HALF SUCCESS ${response.code()}", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                    override fun onFailure(call: Call<ObservationDataItem?>, t: Throwable) {
+                        Toast.makeText(applicationContext, "FAIL", Toast.LENGTH_SHORT).show()
+                    }
+                })
+            }
+
         }
 
     }
+
+
+
 
     private fun checkEmptyFields(
         dropdown_menu: AutoCompleteTextView,
         number: TextInputEditText
     ): Boolean {
         if (dropdown_menu.text.isEmpty()) {
-            dropdown_menu.error = "This field is required"
+            dropdown_menu.error = "Toto pole je povinné"
             dropdown_menu.showDropDown()
             dropdown_menu.requestFocus()
             return true
         }
 
         if (number.text.isNullOrEmpty()) {
-            number.error = "This field is required"
+            number.error = "Toto pole je povinné"
             dropdown_menu
             return true
         }
@@ -276,14 +369,14 @@ class NewObservationActivity : AppCompatActivity() {
 
 
     private fun setClickedProperty(button_submit: RelativeLayout, login_text: TextView) {
-        button_submit.setBackgroundResource(R.drawable.add_photo_button_dark) // set dark color
+        button_submit.setBackgroundResource(R.drawable.button_prim_dark) // set dark color
         button_submit.isEnabled = false
         button_submit.isClickable = false
         login_text.text = "Počkajte.."
     }
 
     private fun setOriginalProperty(button_submit: RelativeLayout, login_text: TextView) {
-        button_submit.setBackgroundResource(R.drawable.add_photo_button) // set original color
+        button_submit.setBackgroundResource(R.drawable.button_prim) // set original color
         button_submit.isEnabled = true
         button_submit.isClickable = true
         login_text.text = "Nahrať"
@@ -294,7 +387,7 @@ class NewObservationActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             file_path = data?.data!!
 
-            val photo_button = findViewById<View>(R.id.add_photo_button)
+            val photo_button = findViewById<View>(R.id.photo_button)
             val photo_text = findViewById<TextView>(R.id.add_photo_text)
 
             photo_button.setBackgroundResource(R.drawable.add_photo_button_dark)
@@ -308,6 +401,7 @@ class NewObservationActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun getGPSLocation(latitude: Double, longitude: Double) {
         if(checkPermissions()) {
             if(isLocationEnabled()) {
@@ -331,7 +425,7 @@ class NewObservationActivity : AppCompatActivity() {
                     }
                     else {
                         // success
-                        Toast.makeText(this,"latitude=" + location.latitude + "\nlongitude" + location.longitude, Toast.LENGTH_SHORT).show()
+//                        Toast.makeText(this,"latitude=" + location.latitude + "\nlongitude" + location.longitude, Toast.LENGTH_SHORT).show()
                         this@NewObservationActivity.latitude = location.latitude
                         this@NewObservationActivity.longitude = location.longitude
                     }
@@ -383,6 +477,50 @@ class NewObservationActivity : AppCompatActivity() {
         else{
             Toast.makeText(applicationContext,"Denied", Toast.LENGTH_SHORT).show()
             }
+        if(requestCode == REQ_CODE)
+            permissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED
+    }
+
+
+    private fun stopRecorder(){
+        recorder.stop()
+
+        isRecordingActive = false
+
+        val mic_logo = findViewById<ImageView>(R.id.mic_logo)
+        mic_logo.setImageResource(R.drawable.ic_baseline_mic_24)
+
+        media_file_path = "$dirPath$mediaFilename.mp3".toUri()
+    }
+
+    private fun startRecording(){
+        if(!permissionGranted) {
+            ActivityCompat.requestPermissions(this, permissions, REQ_CODE)
+            return
+        }
+        recorder = MediaRecorder()
+        dirPath = "${externalCacheDir?.absolutePath}/"
+        var simpleDateFormat = SimpleDateFormat("yyyy.MM.DD_hh.mm.ss")
+        var date = simpleDateFormat.format(Date())
+        mediaFilename = "rec_$date"
+
+        recorder.apply {
+            setAudioSource(MediaRecorder.AudioSource.MIC)
+            setOutputFormat(MediaRecorder.OutputFormat.MPEG_4)
+            setAudioEncoder(MediaRecorder.AudioEncoder.AAC)
+            setOutputFile("$dirPath$mediaFilename.mp3")
+            try {
+                prepare()
+            }catch (e: IOException){}
+
+            start()
+            isRecordingActive = true
+
+            val mic_logo = findViewById<ImageView>(R.id.mic_logo)
+            mic_logo.setImageResource(R.drawable.ic_baseline_stop_24)
+
+
+        }
     }
 
     private fun checkPermissions() : Boolean {
@@ -400,15 +538,18 @@ class NewObservationActivity : AppCompatActivity() {
 
         left_top_text.setOnClickListener {
             val intent = Intent(applicationContext, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+            finish()
         }
 
         val right_top_text = findViewById(R.id.right_top_text) as TextView
 
-//        right_top_text.setOnClickListener {
-//            val intent = Intent(applicationContext, NewSimpleObservationActivity::class.java)
-//            startActivity(intent)
-//        }
+        right_top_text.setOnClickListener {
+            val intent = Intent(applicationContext, NewSimpleObservationActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     private fun setBirdList() {

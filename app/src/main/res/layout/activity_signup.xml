@@ -88,6 +88,7 @@
         android:layout_marginTop="0dp"
         android:text="Prihlásiť\nsa"
         android:textAlignment="center"
+        android:gravity="center"
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
@@ -192,7 +193,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <RelativeLayout
-        android:id="@+id/button_next_step"
+        android:id="@+id/button_send"
         android:layout_width="343dp"
         android:layout_height="51dp"
         android:layout_alignParentLeft="true"
@@ -207,19 +208,19 @@
 
     <TextView
         android:id="@+id/sign_up"
-        android:layout_width="61dp"
-        android:layout_height="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal|top"
-        android:text="@string/sign_up"
+        android:text="Registrovať sa"
         android:textAppearance="@style/sign_up"
-        app:layout_constraintBottom_toBottomOf="@+id/button_next_step"
-        app:layout_constraintEnd_toEndOf="@+id/button_next_step"
-        app:layout_constraintStart_toStartOf="@+id/button_next_step"
-        app:layout_constraintTop_toTopOf="@+id/button_next_step" />
+        app:layout_constraintBottom_toBottomOf="@+id/button_send"
+        app:layout_constraintEnd_toEndOf="@+id/button_send"
+        app:layout_constraintStart_toStartOf="@+id/button_send"
+        app:layout_constraintTop_toTopOf="@+id/button_send" />
 
 
     <androidx.constraintlayout.widget.Guideline

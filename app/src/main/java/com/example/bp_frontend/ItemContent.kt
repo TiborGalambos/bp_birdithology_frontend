@@ -1,7 +1,6 @@
 package com.example.bp_frontend
 
 import android.content.Intent
-import android.location.Geocoder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -12,16 +11,10 @@ import com.example.bp_frontend.backendEndpoints.BackendApiClient
 import com.example.bp_frontend.dataItems.Comment
 import com.example.bp_frontend.loginLogic.SessionManager
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.material.textfield.TextInputEditText
-import com.google.android.material.textfield.TextInputLayout
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import java.util.*
-import android.location.Location
-import android.location.LocationManager
-import android.net.Uri
 import com.squareup.picasso.Picasso
 
 
@@ -65,9 +58,9 @@ class ItemContent : AppCompatActivity() {
 
 
         box_obs_author.text = obs_author.toString()
-        box_bird_name.text = bird_name?.replace("(^\\(|\\)$)", "")
+        box_bird_name.text = bird_name?.replace("(^\\(|\\)$)", "")!!.replace("\"", "")
         box_bird_number.text = bird_count.toString()
-        box_location.text = location?.replace("(^\\(|\\)$)", "")
+        box_location.text = location?.replace("(^\\(|\\)$)", "")!!.replace("\"", "")
 
 
         var com_adapter = CommentListAdapter(
@@ -79,7 +72,7 @@ class ItemContent : AppCompatActivity() {
         val comments_id = findViewById<ListView>(R.id.comments_id)
         comments_id.adapter = com_adapter
 
-        val comment_button = findViewById(R.id.comment_button) as View
+        val comment_button = findViewById(R.id.play_button) as View
 
         val comment_bar = findViewById<TextInputEditText>(R.id.comment_bar1)
 
@@ -151,7 +144,10 @@ class ItemContent : AppCompatActivity() {
 
         left_top_text.setOnClickListener {
             val intent = Intent(applicationContext, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+            finish()
         }
 
 

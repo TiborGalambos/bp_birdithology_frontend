@@ -63,7 +63,9 @@ class HomeActivity : AppCompatActivity() {
             when (menuItem.itemId) {
                 R.id.nav_home -> {
                     val intent = Intent(this@HomeActivity, HomeActivity::class.java)
+                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
                     startActivity(intent)
+                    finish()
                 }
 
                 R.id.nav_profile -> {
@@ -90,11 +92,15 @@ class HomeActivity : AppCompatActivity() {
                     startActivity(intent)
                 }
 
+                R.id.nav_all_obs -> {
+                    val intent = Intent(this@HomeActivity, AllConfirmedObservationsActivity::class.java)
+                    startActivity(intent)
+                }
+
                 admin_menu?.itemId -> {
                     val intent = Intent(this@HomeActivity, AdminConfirmActivity::class.java)
                     startActivity(intent)
                 }
-
 
             }
             false
@@ -166,7 +172,11 @@ class HomeActivity : AppCompatActivity() {
                     Log.d("my_debug", "${response.body()?.is_admin}")
                     if (response.code() == 200 && response.body()!!.is_admin) {
                         admin_menu = drawer_menu.menu.add("Nepotvrdené pozorovania")
+
+                        sessionManager.saveUserType("Odborník")
+
                     }
+                    else sessionManager.saveUserType("Používateľ")
                 }
 
                 override fun onFailure(call: Call<AdminVerification?>, t: Throwable) {
@@ -189,6 +199,7 @@ class HomeActivity : AppCompatActivity() {
                         val intent = Intent(applicationContext, WelcomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
                         startActivity(intent)
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
                         finish()
                     }
                     if (response.code() == 401) {

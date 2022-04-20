@@ -49,12 +49,13 @@ interface BackendApiService {
 
 
     //    ---------------------------------------------
-    //    Adding new OBSERVATIONS
+    //    Adding new OBSERVATIONS - Normal
     //    ---------------------------------------------
 
+    //photo, voice
     @Multipart
     @POST("observation/normal/")
-    fun newNormalObservation(
+    fun newNormalObservationWithPhotoWithVoice(
         @Header("Authorization") token: String,
 
         @Part("bird_name") bird_name:String,
@@ -65,13 +66,53 @@ interface BackendApiService {
 
         @Part("obs_place") obs_place: String,
 
-        @Part bird_photo: MultipartBody.Part
+        @Part bird_photo: MultipartBody.Part,
+        @Part bird_recording: MultipartBody.Part
+
+    ):Call<ObservationDataItem>
+
+    //photo
+    @Multipart
+    @POST("observation/normal/")
+    fun newNormalObservationWithPhotoNoVoice(
+        @Header("Authorization") token: String,
+
+        @Part("bird_name") bird_name:String,
+        @Part("bird_count") bird_count: Int,
+
+        @Part("obs_x_coords") obs_x_coords: Float,
+        @Part("obs_y_coords") obs_y_coords: Float,
+
+        @Part("obs_place") obs_place: String,
+
+        @Part bird_photo: MultipartBody.Part,
+
     ):Call<ObservationDataItem>
 
 
+    //voice
     @Multipart
     @POST("observation/normal/")
-    fun newNormalObservationWithoutMedia(
+    fun newNormalObservationNoPhotoWithVoice(
+        @Header("Authorization") token: String,
+
+        @Part("bird_name") bird_name:String,
+        @Part("bird_count") bird_count: Int,
+
+        @Part("obs_x_coords") obs_x_coords: Float,
+        @Part("obs_y_coords") obs_y_coords: Float,
+
+        @Part("obs_place") obs_place: String,
+
+        @Part bird_recording: MultipartBody.Part
+
+    ):Call<ObservationDataItem>
+
+
+    //nothing
+    @Multipart
+    @POST("observation/normal/")
+    fun newNormalObservationNoPhotoNoVoice(
         @Header("Authorization") token: String,
 
         @Part("bird_name") bird_name:String,
@@ -83,6 +124,96 @@ interface BackendApiService {
         @Part("obs_place") obs_place: String,
 
     ):Call<ObservationDataItem>
+
+
+    //    ---------------------------------------------
+    //    Adding new OBSERVATIONS - Simple
+    //    ---------------------------------------------
+
+
+    // photo
+    @Multipart
+    @POST("observation/simple/")
+    fun newSimpleObservationWithPhotoNoVoice(
+        @Header("Authorization") token: String,
+
+        @Part("bird_count") bird_count: Int,
+
+        @Part("obs_x_coords") obs_x_coords: Float,
+        @Part("obs_y_coords") obs_y_coords: Float,
+
+        @Part("obs_place") obs_place: String,
+
+        @Part("bird_size") bird_size: String,
+        @Part("bird_color") bird_color: String,
+        @Part("bird_beak") bird_beak: String,
+
+        @Part bird_photo: MultipartBody.Part,
+    ):Call<ObservationDataItem>
+
+
+    // nothing
+    @Multipart
+    @POST("observation/simple/")
+    fun newSimpleObservationNoPhotoNoVoice(
+        @Header("Authorization") token: String,
+
+        @Part("bird_count") bird_count: Int,
+
+        @Part("obs_x_coords") obs_x_coords: Float,
+        @Part("obs_y_coords") obs_y_coords: Float,
+
+        @Part("obs_place") obs_place: String,
+
+        @Part("bird_size") bird_size: String,
+        @Part("bird_color") bird_color: String,
+        @Part("bird_beak") bird_beak: String,
+
+
+        ):Call<ObservationDataItem>
+
+    // voice
+    @Multipart
+    @POST("observation/simple/")
+    fun newSimpleObservationNoPhotoWithVoice(
+        @Header("Authorization") token: String,
+
+        @Part("bird_count") bird_count: Int,
+
+        @Part("obs_x_coords") obs_x_coords: Float,
+        @Part("obs_y_coords") obs_y_coords: Float,
+
+        @Part("obs_place") obs_place: String,
+
+        @Part("bird_size") bird_size: String,
+        @Part("bird_color") bird_color: String,
+        @Part("bird_beak") bird_beak: String,
+
+        @Part bird_recording: MultipartBody.Part
+    ):Call<ObservationDataItem>
+
+
+    // photo voice
+    @Multipart
+    @POST("observation/simple/")
+    fun newSimpleObservationWithPhotoWithVoice(
+        @Header("Authorization") token: String,
+
+        @Part("bird_count") bird_count: Int,
+
+        @Part("obs_x_coords") obs_x_coords: Float,
+        @Part("obs_y_coords") obs_y_coords: Float,
+
+        @Part("obs_place") obs_place: String,
+
+        @Part("bird_size") bird_size: String,
+        @Part("bird_color") bird_color: String,
+        @Part("bird_beak") bird_beak: String,
+
+        @Part bird_recording: MultipartBody.Part,
+        @Part bird_photo: MultipartBody.Part,
+
+        ):Call<ObservationDataItem>
 
 
 
@@ -116,6 +247,23 @@ interface BackendApiService {
 
         ):Call<ObservationList>
 
+    @Multipart
+    @PUT("observation/species/locations/")
+    fun fetchObservationsForMap(
+        @Part("bird_name") bird_name: String,
+        @Header("Authorization") token: String,
+
+        ):Call<Locations>
+
+    @Multipart
+    @PUT("observation/species/occurrence/")
+    fun fetchObservationsForGraph(
+        @Part("bird_name") bird_name: String,
+        @Part("year") year: Int,
+        @Header("Authorization") token: String,
+
+        ):Call<GraphDataItem>
+
 
     @GET("observation/recent")
     fun fetchObservationsWithComments(
@@ -126,6 +274,14 @@ interface BackendApiService {
 
     @GET("observation/user/{page_number}")
     fun fetchUserObservations(
+        @Path("page_number") page_number:Int,
+        @Header("Authorization") token: String,
+
+        ):Call<ObservationList>
+
+
+    @GET("observation/comments/{page_number}")
+    fun fetchAllConfirmedObservations(
         @Path("page_number") page_number:Int,
         @Header("Authorization") token: String,
 
@@ -171,6 +327,13 @@ interface BackendApiService {
         @Part("bird_name") bird_name: String,
         @Header("Authorization") token: String,
         ):Call<UpdateConfirm>
+
+
+    @DELETE("observation/unconfirmed/update/{obs_number}")
+    fun deleteObservation(
+        @Path("obs_number") obs_number:Int,
+        @Header("Authorization") token: String,
+    ):Call<UpdateConfirm>
 
 
 

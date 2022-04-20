@@ -13,7 +13,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="New Simple\n Observation"
+        android:text="Jednoduché\n Pozorovanie"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline10"
         app:layout_constraintStart_toStartOf="@+id/guideline9"
@@ -60,7 +60,7 @@
         style="@style/top_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/cancel"
+        android:text="Späť"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
         app:layout_constraintEnd_toStartOf="@+id/guideline9"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
@@ -80,24 +80,17 @@
         android:orientation="vertical"
         app:layout_constraintGuide_end="100dp" />
 
-    <!--    <TextView-->
-    <!--        android:id="@+id/right_top_text"-->
-    <!--        style="@style/top_text"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_marginTop="0dp"-->
-    <!--        android:text="Simple Form"-->
-    <!--        app:layout_constraintBottom_toTopOf="@+id/guideline3"-->
-    <!--        app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
-    <!--        app:layout_constraintStart_toStartOf="@+id/guideline10"-->
-    <!--        app:layout_constraintTop_toTopOf="@+id/guideline5" />-->
+
+
+
+
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input1"
         android:layout_width="341dp"
         android:layout_height="50dp"
-        android:hint="Size"
+        android:hint="Veľkosť"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -114,6 +107,7 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/size"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg"
@@ -128,7 +122,7 @@
         android:id="@+id/input2"
         android:layout_width="341dp"
         android:layout_height="50dp"
-        android:hint="Color"
+        android:hint="Farba"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -145,6 +139,7 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/color"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg"
@@ -158,7 +153,7 @@
         android:id="@+id/input3"
         android:layout_width="341dp"
         android:layout_height="50dp"
-        android:hint="Beak"
+        android:hint="Zobák"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -175,6 +170,7 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/beak"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg"
@@ -188,7 +184,7 @@
         android:id="@+id/input4"
         android:layout_width="341dp"
         android:layout_height="50dp"
-        android:hint="How many"
+        android:hint="Počet"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -205,20 +201,24 @@
 
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/decimal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg"
-            android:outlineProvider="none">
+            android:outlineProvider="none"
+            android:inputType="numberDecimal">
 
         </com.google.android.material.textfield.TextInputEditText>
 
     </com.google.android.material.textfield.TextInputLayout>
 
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/input5"
         android:layout_width="341dp"
         android:layout_height="50dp"
-        android:hint="Time"
+        android:hint="Miesto"
         android:outlineAmbientShadowColor="@color/black"
         android:scrollbarSize="40dp"
         app:boxBackgroundColor="#FFF"
@@ -228,47 +228,23 @@
         app:counterEnabled="false"
         app:counterMaxLength="32"
         app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@+id/input6"
+        app:layout_constraintBottom_toTopOf="@+id/photo_button"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
         app:layout_constraintTop_toBottomOf="@+id/input4">
 
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/loc_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/bg"
-            android:outlineProvider="none">
-
-        </com.google.android.material.textfield.TextInputEditText>
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/input6"
-        android:layout_width="341dp"
-        android:layout_height="50dp"
-        android:hint="Location"
-        android:outlineAmbientShadowColor="@color/black"
-        android:scrollbarSize="40dp"
-        app:boxBackgroundColor="#FFF"
-        app:boxStrokeColor="#FFF"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:counterEnabled="false"
-        app:counterMaxLength="32"
-        app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@+id/add_photo_button"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/input5">
-
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/bg"
-            android:outlineProvider="none">
+            android:outlineProvider="none"
+            tools:layout_conversion_absoluteHeight="50dp"
+            tools:layout_conversion_absoluteWidth="341dp"
+            android:focusable="false"
+            android:inputType="text"
+            >
 
         </com.google.android.material.textfield.TextInputEditText>
 
@@ -276,7 +252,7 @@
 
 
     <RelativeLayout
-        android:id="@+id/button_next_step"
+        android:id="@+id/button_send"
         android:layout_width="343dp"
         android:layout_height="51dp"
         android:layout_alignParentLeft="true"
@@ -290,7 +266,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline2" />
 
     <TextView
-        android:id="@+id/sign_up"
+        android:id="@+id/send_2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -298,16 +274,17 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal|top"
-        android:text="Apply"
+        android:text="Uložiť pozorovanie"
+        android:textSize="20dp"
         android:textAppearance="@style/sign_up"
-        app:layout_constraintBottom_toBottomOf="@+id/button_next_step"
-        app:layout_constraintEnd_toEndOf="@+id/button_next_step"
-        app:layout_constraintStart_toStartOf="@+id/button_next_step"
-        app:layout_constraintTop_toTopOf="@+id/button_next_step" />
+        app:layout_constraintBottom_toBottomOf="@+id/button_send"
+        app:layout_constraintEnd_toEndOf="@+id/button_send"
+        app:layout_constraintStart_toStartOf="@+id/button_send"
+        app:layout_constraintTop_toTopOf="@+id/button_send" />
 
     <!-- BG -->
     <View
-        android:id="@+id/add_photo_button"
+        android:id="@+id/photo_button"
         android:layout_width="171dp"
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
@@ -316,12 +293,78 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/add_photo_button"
         app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@+id/button_next_step"
+        app:layout_constraintBottom_toTopOf="@+id/audio_button"
         app:layout_constraintEnd_toStartOf="@+id/get_location"
         app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toBottomOf="@+id/input6"
+        app:layout_constraintTop_toBottomOf="@+id/input5"
         tools:ignore="MissingConstraints" />
 
+    <ImageView
+        android:id="@+id/photo_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_add_a_photo_24"
+
+        app:layout_constraintBottom_toBottomOf="@+id/photo_button"
+        app:layout_constraintEnd_toStartOf="@+id/add_photo_text"
+        app:layout_constraintStart_toStartOf="@+id/photo_button"
+        app:layout_constraintTop_toTopOf="@+id/photo_button"
+        tools:ignore="MissingConstraints"/>
+
+
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_save_24"
+        app:layout_constraintBottom_toBottomOf="@+id/button_send"
+        app:layout_constraintEnd_toStartOf="@+id/send_2"
+        app:layout_constraintStart_toStartOf="@+id/button_send"
+        app:layout_constraintTop_toTopOf="@+id/button_send"
+        tools:ignore="MissingConstraints" />
+
+    <View
+        android:id="@+id/audio_button"
+        android:layout_width="343dp"
+
+        android:layout_height="51dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/button_prim"
+        app:counterOverflowTextColor="@color/teal_200"
+        app:layout_constraintBottom_toTopOf="@+id/guideline2"
+        app:layout_constraintEnd_toStartOf="@+id/guideline8"
+        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/audio_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:gravity="center_horizontal|top"
+        android:text="Spustiť nahrávanie zvuku"
+        android:textAppearance="@style/sign_up"
+        app:layout_constraintBottom_toBottomOf="@+id/audio_button"
+        app:layout_constraintEnd_toEndOf="@+id/audio_button"
+        app:layout_constraintStart_toStartOf="@+id/audio_button"
+        app:layout_constraintTop_toTopOf="@+id/audio_button" />
+
+    <ImageView
+        android:id="@+id/mic_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_mic_24"
+        app:layout_constraintBottom_toBottomOf="@+id/audio_button"
+        app:layout_constraintEnd_toStartOf="@+id/audio_text"
+        app:layout_constraintStart_toStartOf="@+id/audio_button"
+        app:layout_constraintTop_toTopOf="@+id/audio_button"
+        tools:ignore="MissingConstraints" />
 
 
     <TextView
@@ -333,12 +376,12 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal|top"
-        android:text="Add Photo"
+        android:text="Pridať fotku"
         android:textAppearance="@style/sign_up"
-        app:layout_constraintBottom_toBottomOf="@+id/add_photo_button"
-        app:layout_constraintEnd_toEndOf="@+id/add_photo_button"
-        app:layout_constraintStart_toStartOf="@+id/add_photo_button"
-        app:layout_constraintTop_toTopOf="@+id/add_photo_button" />
+        app:layout_constraintBottom_toBottomOf="@+id/photo_button"
+        app:layout_constraintEnd_toEndOf="@+id/photo_button"
+        app:layout_constraintStart_toEndOf="@id/photo_logo"
+        app:layout_constraintTop_toTopOf="@+id/photo_button" />
 
     <View
         android:id="@+id/get_location"
@@ -350,10 +393,21 @@
         android:layout_alignParentBottom="true"
         android:background="@drawable/add_photo_button"
         app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@+id/button_next_step"
+        app:layout_constraintBottom_toTopOf="@+id/audio_button"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintTop_toBottomOf="@+id/input6"
-        app:layout_constraintStart_toEndOf="@id/add_photo_button"
+        app:layout_constraintStart_toEndOf="@id/photo_button"
+        app:layout_constraintTop_toBottomOf="@+id/input5"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/location_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_add_location_24"
+        app:layout_constraintBottom_toBottomOf="@+id/get_location"
+        app:layout_constraintEnd_toStartOf="@+id/get_location_text"
+        app:layout_constraintStart_toStartOf="@+id/get_location"
+        app:layout_constraintTop_toTopOf="@+id/get_location"
         tools:ignore="MissingConstraints" />
 
     <TextView
@@ -365,12 +419,14 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
         android:gravity="center_horizontal|top"
-        android:text="Get Location"
+        android:text="Zisti miesto"
         android:textAppearance="@style/sign_up"
         app:layout_constraintBottom_toBottomOf="@+id/get_location"
         app:layout_constraintEnd_toEndOf="@+id/get_location"
-        app:layout_constraintStart_toStartOf="@+id/get_location"
+        app:layout_constraintStart_toEndOf="@+id/location_logo"
         app:layout_constraintTop_toTopOf="@+id/get_location" />
+
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"

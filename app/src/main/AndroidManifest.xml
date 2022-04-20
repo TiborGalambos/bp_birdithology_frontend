@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +16,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.BP_frontend">
+        <activity
+            android:name=".GraphActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AllConfirmedObservationsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MapsActivity"
+            android:exported="false" />
         <activity
             android:name=".UnconfirmedItemContentActivity"
             android:exported="false" />
@@ -31,12 +42,11 @@
             android:exported="false" />
         <activity
             android:name=".GlobalStatisticsActivity"
-            android:exported="false" />
-        <activity
-            android:name=".NavigationActivity"
-            android:exported="false"
-            android:label="@string/title_activity_navigation"
-            android:theme="@style/Theme.BP_frontend.NoActionBar" />
+            android:exported="false" /> <!-- <activity -->
+        <!-- android:name=".NavigationActivity" -->
+        <!-- android:exported="false" -->
+        <!-- android:label="@string/title_activity_navigation" -->
+        <!-- android:theme="@style/Theme.BP_frontend.NoActionBar" /> -->
         <activity
             android:name=".ItemContent"
             android:exported="false" />
@@ -75,6 +85,17 @@
         <activity
             android:name=".WelcomeActivity"
             android:exported="false" />
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="${MAPS_API_KEY}" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
     </application>
 
 </manifest>

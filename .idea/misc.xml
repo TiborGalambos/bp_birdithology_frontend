@@ -15,6 +15,7 @@
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/drawable/divider_line.xml" value="0.2645" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/drawable/home_feed_block.xml" value="0.2645" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/drawable/ic_baseline_account_circle_24.xml" value="0.3055" />
+        <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/drawable/ic_baseline_add_location_24.xml" value="0.2445" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/drawable/ic_baseline_menu_24.xml" value="0.261" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/drawable/ic_frame.xml" value="0.259" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/drawable/ic_launcher_background.xml" value="0.346" />
@@ -31,8 +32,10 @@
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/drawable/welcome_bg1.xml" value="0.282" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout-v31/activity_welcome.xml" value="0.3046875" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_admin_confirm.xml" value="0.2128205128205128" />
+        <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_all_confirmed_observations.xml" value="0.29743589743589743" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_bird_species_stats.xml" value="0.29743589743589743" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_global_statistics.xml" value="0.25" />
+        <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_graph.xml" value="0.33" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_home.xml" value="0.31313775510204084" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_home_scrollable.xml" value="0.29743589743589743" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_item_content.xml" value="0.22" />
@@ -40,10 +43,12 @@
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_login2.xml" value="0.1" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_logo.xml" value="0.19230769230769232" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_main.xml" value="0.4262295081967213" />
+        <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_maps.xml" value="0.2128205128205128" />
+        <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_maps2.xml" value="0.30641025641025643" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_my_collection.xml" value="0.19273504273504274" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_navigation.xml" value="0.15213675213675212" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_navigation2.xml" value="0.2012820512820513" />
-        <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_new_observation.xml" value="0.22" />
+        <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_new_observation.xml" value="0.33" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_new_observation_pick_time.xml" value="0.16495726495726495" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_new_observation_second_page.xml" value="0.25" />
         <entry key="..\:/Users/tibor/AndroidStudioProjects/BP_frontend/app/src/main/res/layout/activity_new_simple_observation.xml" value="0.33" />

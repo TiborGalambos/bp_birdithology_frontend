@@ -17,15 +17,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AdminConfirmActivity : AppCompatActivity() {
-
+class AllConfirmedObservationsActivity : AppCompatActivity() {
     lateinit var sessionManager: SessionManager
     private lateinit var apiClient: BackendApiClient
     lateinit var ids:Array<String?>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_admin_confirm)
+        setContentView(R.layout.activity_all_confirmed_observations)
 
         back_button()
 
@@ -35,7 +34,7 @@ class AdminConfirmActivity : AppCompatActivity() {
         val page_number = intent.getIntExtra("page_number",1)
 
 
-        apiClient.getApiService(this).fetchUnconfirmedObservations(page_number = page_number, token = "Token ${sessionManager.getToken()}")
+        apiClient.getApiService(this).fetchAllConfirmedObservations(page_number = page_number, token = "Token ${sessionManager.getToken()}")
             .enqueue(object : Callback<ObservationList?> {
                 override fun onResponse(
                     call: Call<ObservationList?>,
@@ -53,12 +52,6 @@ class AdminConfirmActivity : AppCompatActivity() {
                     Toast.makeText(applicationContext, "VERY BAD", Toast.LENGTH_SHORT)
                 }
             })
-
-
-
-
-
-
 
 
 
@@ -88,14 +81,14 @@ class AdminConfirmActivity : AppCompatActivity() {
 
 
         val adapter = MyCollectionAdapter(
-            this@AdminConfirmActivity,
+            this@AllConfirmedObservationsActivity,
             bird_name = bird_name,
             bird_count =  bird_count,
             photo = photo,
             id = id,
             location = obs_location
         )
-        val list_id = findViewById<ListView>(R.id.list_id_unconfirmed)
+        val list_id = findViewById<ListView>(R.id.list_id_my_collection)
         list_id.adapter = adapter
 
 
@@ -105,7 +98,7 @@ class AdminConfirmActivity : AppCompatActivity() {
         val next_image = findViewById<ImageView>(R.id.next_image)
         val prev_image = findViewById<ImageView>(R.id.prev_image)
 
-        val intent_page = Intent(this, AdminConfirmActivity::class.java)
+        val intent_page = Intent(this, AllConfirmedObservationsActivity::class.java)
 
 
         if(response.body()!!.paginator.has_next){
@@ -136,8 +129,7 @@ class AdminConfirmActivity : AppCompatActivity() {
         list_id.setOnItemClickListener{ _, _, position, _ ->
 
 
-            val intent = Intent(this, UnconfirmedItemContentActivity::class.java)
-            // TODO()
+            val intent = Intent(this, ItemContent::class.java)
 
             val com_author = arrayOfNulls<String>(size = items.obs[position].comments.size)
             val comment = arrayOfNulls<String>(size = items.obs[position].comments.size)
@@ -159,18 +151,8 @@ class AdminConfirmActivity : AppCompatActivity() {
             intent.putExtra("bird_count", items.obs[position].bird_count)
             intent.putExtra("bird_name", items.obs[position].bird_name)
             intent.putExtra("photo", items.obs[position].bird_photo)
-            intent.putExtra("obs_is_simple", items.obs[position].obs_is_simple)
-            if(items.obs[position].obs_is_simple)
-            {
-                intent.putExtra("bird_color", items.obs[position].bird_color)
-                intent.putExtra("bird_size", items.obs[position].bird_size)
-                intent.putExtra("bird_beak", items.obs[position].bird_beak)
-            }
 
 
-            intent.putExtra("bird_recording", items.obs[position].bird_recording)
-
-            intent.putExtra("photo", items.obs[position].bird_photo)
 
 
             startActivity(intent)

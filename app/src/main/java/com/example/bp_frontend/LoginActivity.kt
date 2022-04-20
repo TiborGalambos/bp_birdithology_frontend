@@ -56,9 +56,8 @@ class LoginActivity : AppCompatActivity() {
 
                         if (loginResponse != null){
                             sessionManager.saveToken(loginResponse.token)
-//                            sessionManager.saveUsername(username)
+                            sessionManager.saveUsername(username)
                         }
-                        val token = sessionManager.getToken()
 
                         val intent = Intent(applicationContext, HomeActivity::class.java)
                         intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -67,15 +66,15 @@ class LoginActivity : AppCompatActivity() {
                     }
 
                     if(response.code() == 400){
-                        Toast.makeText(applicationContext,"Unable to log in.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(applicationContext,"Nedokážem sa prihlásiť.", Toast.LENGTH_SHORT).show()
                         password_bar.setText("")
-                        password_bar.error = "Password required"
+                        password_bar.error = "Heslo je povinné"
                         setOriginalProperty(button_login, login_text)
                     }
                 }
 
                 override fun onFailure(call: Call<LoginResponse?>, t: Throwable) {
-                    Toast.makeText(applicationContext,"Something went wrong, try again later.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext,"Niečo sa pokazilo.", Toast.LENGTH_SHORT).show()
                     setOriginalProperty(button_login, login_text)
                 }
             })
@@ -92,13 +91,13 @@ class LoginActivity : AppCompatActivity() {
         login_text: TextView
     ) {
         if (username.isEmpty()) {
-            name_bar.error = "Username required"
+            name_bar.error = "Meno je povinné"
             name_bar.requestFocus()
             setOriginalProperty(button_login, login_text)
         }
 
         if (password.isEmpty()) {
-            password_bar.error = "Password required"
+            password_bar.error = "Heslo je povinné"
             password_bar.requestFocus()
             setOriginalProperty(button_login, login_text)
         }
@@ -108,14 +107,14 @@ class LoginActivity : AppCompatActivity() {
         button_login.setBackgroundResource(R.drawable.button_prim) // set original color
         button_login.isEnabled = true
         button_login.isClickable = true
-        login_text.text = "Log In"
+        login_text.text = "Prihlásiť sa"
     }
 
     private fun setClickedProperty(button_login: RelativeLayout, login_text: TextView) {
         button_login.setBackgroundResource(R.drawable.button_prim_dark) // set dark color
         button_login.isEnabled = false
         button_login.isClickable = false
-        login_text.text = "Loading"
+        login_text.text = "Načítavam"
     }
 
 

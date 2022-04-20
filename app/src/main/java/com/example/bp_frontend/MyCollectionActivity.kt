@@ -58,11 +58,6 @@ class MyCollectionActivity : AppCompatActivity() {
 
 
 
-
-
-
-
-
     }
 
     private fun fetchObservations(response: Response<ObservationList?>) {
@@ -172,7 +167,10 @@ class MyCollectionActivity : AppCompatActivity() {
         val left_top_text = findViewById<TextView>(R.id.left_top_text)
         left_top_text.setOnClickListener {
             val intent = Intent(applicationContext, HomeActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+            finish()
 
         }
     }
