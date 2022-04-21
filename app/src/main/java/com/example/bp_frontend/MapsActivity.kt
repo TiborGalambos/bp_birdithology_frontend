@@ -55,10 +55,7 @@ class MapsActivity : AppCompatActivity() {
         val graphs = findViewById<View>(R.id.button2)
 
         graphs.setOnClickListener {
-            val intent = Intent(this@MapsActivity, GraphActivity::class.java)
-            intent.putExtra("bird_name", bird_name)
-            intent.putExtra("year", Calendar.getInstance().get(Calendar.YEAR).toInt())
-            startActivity(intent)
+
         }
 
         if(showHeatmap == true)
@@ -96,8 +93,8 @@ class MapsActivity : AppCompatActivity() {
 
                         val data = response.body()
 
-                        val locations_x = arrayOfNulls<Double>(data!!.obs.size)
-                        val locations_y = arrayOfNulls<Double>(data!!.obs.size)
+//                        val locations_x = arrayOfNulls<Double>(data!!.obs.size)
+//                        val locations_y = arrayOfNulls<Double>(data!!.obs.size)
 
                         val result: MutableList<LatLng?> = ArrayList()
 

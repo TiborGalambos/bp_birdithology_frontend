@@ -10,11 +10,7 @@
     <string name="login">Login</string>
     <string name="cancel">Cancel</string>
     <string name="welcome">Welcome</string>
-    <string name="lorem">Sed consectetur, ex quis consectetur suscipit,
-    massa nunc condimentum neque, eget accumsan risus mauris in ipsum.
-    Nulla facilisi. Morbi ultrices mollis molestie. Duis congue enim sit
-    amet fringilla rutrum. Maecenas facilisis justo sit amet ligula lacinia auctor.
-    Pellentesque ut dui ac diam tristique eleifend quis non odio. Quisque sit amet dui sem.</string>
+    <string name="lorem">Birdithology je aplikácia na sledovanie vtáčich druhov. Ponúka možnosť zaznamenávania výskytov pomocou fotografie, zvukovej nahrávky alebo opisu. Používateľom sú dostupné aj štatistické údaje.</string>
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>

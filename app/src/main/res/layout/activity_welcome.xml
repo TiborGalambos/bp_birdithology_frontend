@@ -22,7 +22,6 @@
             android:layout_height="363dp"
 
 
-
             android:background="@drawable/welcome_bg1"
             android:elevation="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -67,22 +66,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.35" />
+        app:layout_constraintGuide_percent="0.41" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.59" />
+        app:layout_constraintGuide_percent="0.58" />
 
     <TextView
         android:layout_width="243dp"
-        android:layout_height="40dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:gravity="center_horizontal|top"
-        android:text="Vítajte"
+        android:text="Vitajte v Birdithology"
         android:textAppearance="@style/congratulat"
         app:layout_constraintBottom_toTopOf="@+id/guideline14"
         app:layout_constraintEnd_toStartOf="@+id/guideline13"
@@ -92,7 +91,7 @@
     <TextView
         android:id="@+id/text"
         android:layout_width="311dp"
-        android:layout_height="166dp"
+        android:layout_height="wrap_content"
         android:background="#00000000"
         android:text="@string/lorem"
         app:layout_constraintBottom_toTopOf="@+id/guideline15"

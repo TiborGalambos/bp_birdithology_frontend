@@ -91,7 +91,7 @@
         android:id="@+id/map"
         app:layout_constraintBottom_toTopOf="@+id/guideline4"
         app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
+        app:layout_constraintStart_toStartOf="@+id/gu0ideline7"
         android:layout_height="500dp"
         android:layout_width="match_parent"
         app:layout_constraintTop_toBottomOf="@id/guideline3"

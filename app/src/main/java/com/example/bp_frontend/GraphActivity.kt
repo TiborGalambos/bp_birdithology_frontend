@@ -3,6 +3,7 @@ package com.example.bp_frontend
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.EditText
 import android.widget.TextView
@@ -20,13 +21,14 @@ import kotlinx.android.synthetic.main.activity_graph.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.lang.Thread.sleep
 import java.util.*
 import kotlin.collections.ArrayList
 
 class GraphActivity : AppCompatActivity() {
 
     data class Occurrence(
-        val bird_name:String,
+        val month:String,
         val bird_count: Int,
     )
 
@@ -45,23 +47,25 @@ class GraphActivity : AppCompatActivity() {
         val bird_name = intent.extras?.getString("bird_name")
         val year = intent.extras?.getInt("year")
 
-        val button1 = findViewById<View>(R.id.button1)
+        Log.d("my_debug","activity got: $bird_name $year")
 
+        val button1 = findViewById<View>(R.id.button1)
+        back_button()
         val textView = findViewById<TextView>(R.id.textView)
         textView.text = bird_name
 
-        var jan = 0
-        var feb = 0
-        var mar = 0
-        var apr = 0
-        var may = 0
-        var jun = 0
-        var jul = 0
-        var aug = 0
-        var sep = 0
-        var oct = 0
-        var nov = 0
-        var dec = 0
+//        var jan = 0
+//        var feb = 0
+//        var mar = 0
+//        var apr = 0
+//        var may = 0
+//        var jun = 0
+//        var jul = 0
+//        var aug = 0
+//        var sep = 0
+//        var oct = 0
+//        var nov = 0
+//        var dec = 0
 
 
         apiClient = BackendApiClient()
@@ -75,36 +79,41 @@ class GraphActivity : AppCompatActivity() {
                 call: Call<GraphDataItem?>,
                 response: Response<GraphDataItem?>
             ) {
-                val items = response.body()
+                if(response.code() == 200)
+                {
 
 
+                val items = response.body()!!
 
+                Log.d("my_debug","i got response" +
+                        "${response.body()}")
 
-                jan = items!!.year?.jan
-                feb = items?.year?.feb
-                mar = items?.year?.mar
-                apr = items?.year?.apr
-                may = items?.year?.maj
-                jun = items?.year?.jun
-                jul = items?.year?.jul
-                aug = items?.year?.aug
-                sep = items?.year?.sep
-                oct = items?.year?.oct
-                nov = items?.year?.nov
-                dec = items?.year?.dec
+//                jan = items.year.jan
+//                feb = items.year.feb
+//                mar = items.year.mar
+//                apr = items.year.apr
+//                may = items.year.maj
+//                jun = items.year.jun
+//                jul = items.year.jul
+//                aug = items.year.aug
+//                sep = items.year.sep
+//                oct = items.year.oct
+//                nov = items.year.nov
+//                dec = items.year.dec
+                sleep(100)
 
-                year_data.add(Occurrence("Jan", jan))
-                year_data.add(Occurrence("Feb", feb))
-                year_data.add(Occurrence("Mar", mar))
-                year_data.add(Occurrence("Apr", apr))
-                year_data.add(Occurrence("Máj", may))
-                year_data.add(Occurrence("Jún", jun))
-                year_data.add(Occurrence("Júl", jul))
-                year_data.add(Occurrence("Aug", aug))
-                year_data.add(Occurrence("Sep", sep))
-                year_data.add(Occurrence("Okt", oct))
-                year_data.add(Occurrence("Nov", nov))
-                year_data.add(Occurrence("Dec", dec))
+                year_data.add(Occurrence("Jan", items.year.jan))
+                year_data.add(Occurrence("Feb", items.year.feb))
+                year_data.add(Occurrence("Mar", items.year.mar))
+                year_data.add(Occurrence("Apr", items.year.apr))
+                year_data.add(Occurrence("Máj", items.year.maj))
+                year_data.add(Occurrence("Jún", items.year.jun))
+                year_data.add(Occurrence("Júl", items.year.jul))
+                year_data.add(Occurrence("Aug", items.year.aug))
+                year_data.add(Occurrence("Sep", items.year.sep))
+                year_data.add(Occurrence("Okt", items.year.oct))
+                year_data.add(Occurrence("Nov", items.year.nov))
+                year_data.add(Occurrence("Dec", items.year.dec))
 
 
                 initBarChart()
@@ -128,8 +137,10 @@ class GraphActivity : AppCompatActivity() {
 
             }
 
+            }
+
             override fun onFailure(call: Call<GraphDataItem?>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.d("my_debug","i failed")
             }
         })
 
@@ -150,16 +161,14 @@ class GraphActivity : AppCompatActivity() {
             }
             else
             {
-                val intent = Intent(this, GraphActivity::class.java)
-                intent.putExtra("bird_name", bird_name)
+                val intent = Intent(applicationContext, GraphActivity::class.java)
+                intent.putExtra("bird_name", bird_name.toString())
                 intent.putExtra("year", year_picker.text.toString().toInt())
+                Log.d("my_debug","prev year = ${year_picker.text.toString().toInt()}")
                 startActivity(intent)
                 finish()
             }
-
-
         }
-
     }
 
     private fun initBarChart() {
@@ -181,9 +190,8 @@ class GraphActivity : AppCompatActivity() {
         //remove description label
         barChart.description.isEnabled = false
 
-
         //add animation
-        barChart.animateY(3000)
+        barChart.animateY(1000)
 
         // to draw label on xAxis
         xAxis.position = XAxis.XAxisPosition.BOTTOM_INSIDE
@@ -194,35 +202,27 @@ class GraphActivity : AppCompatActivity() {
 
     }
 
-
     inner class MyAxisFormatter : IndexAxisValueFormatter() {
 
         override fun getAxisLabel(value: Float, axis: AxisBase?): String {
             val index = value.toInt()
             return if (index < year_data.size) {
-                year_data[index].bird_name
+                year_data[index].month
             } else {
                 ""
             }
         }
     }
 
-
-    // simulate api call
-    // we are initialising it directly
-
     private fun back_button() {
         val back_button = findViewById<TextView>(R.id.left_top_text)
 
         back_button.setOnClickListener {
-            val intent = Intent(this, MapsActivity::class.java)
+            val intent = Intent(this@GraphActivity, BirdSpeciesStatsActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
             finish()
         }
     }
-
-
-
 
 }

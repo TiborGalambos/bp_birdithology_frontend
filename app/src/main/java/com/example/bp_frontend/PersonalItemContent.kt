@@ -12,6 +12,8 @@ import android.widget.Toast
 import com.example.bp_frontend.ListAdapter.CommentListAdapter
 import com.example.bp_frontend.backendEndpoints.BackendApiClient
 import com.example.bp_frontend.dataItems.Comment
+import com.example.bp_frontend.dataItems.DeleteConfirm
+import com.example.bp_frontend.dataItems.UpdateConfirm
 import com.example.bp_frontend.loginLogic.SessionManager
 import com.google.android.material.textfield.TextInputEditText
 import com.squareup.picasso.Picasso
@@ -44,6 +46,8 @@ class PersonalItemContent : AppCompatActivity() {
         val box_bird_number = findViewById<TextView>(R.id.bird_number)
         val box_location = findViewById<TextView>(R.id.obs_location)
         val photo_box = findViewById<ImageView>(R.id.photo_content)
+
+        val delete_button = findViewById<View>(R.id.delete_button)
 
 
         Picasso.with(this)
@@ -122,6 +126,57 @@ class PersonalItemContent : AppCompatActivity() {
                         setOriginalProperty(comment_button, comment_button_text)
                     }
                 })
+
+        }
+
+
+        delete_button.setOnClickListener {
+
+            apiClient = BackendApiClient()
+            sessionManager = SessionManager(this)
+
+            apiClient.getApiService(this)
+                .deleteMyObservation(
+                    token = "Token ${sessionManager.getToken()}",
+                    obs_number = idOfItem.toInt()
+                ).enqueue(object : Callback<DeleteConfirm?> {
+                    override fun onResponse(
+                        call: Call<DeleteConfirm?>,
+                        response: Response<DeleteConfirm?>
+                    ) {
+                        val intent2 = Intent(this@PersonalItemContent, MyCollectionActivity::class.java)
+
+                        if(response.code() == 201 && response.body()?.deleted == true)
+                        {
+                            Toast.makeText(applicationContext, "Pozorovanie úspešne vymazané.", Toast.LENGTH_SHORT).show()
+                            startActivity(intent2)
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+                            finish()
+                        }
+
+                        if(response.code() == 401 && response.body()?.deleted == false)
+                        {
+                            Toast.makeText(applicationContext, "Na vymazanie nemáte oprávnenie.", Toast.LENGTH_SHORT).show()
+                            startActivity(intent2)
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+                            finish()
+                        }
+                        if(response.code() == 404 && response.body()?.deleted == false)
+                        {
+                            Toast.makeText(applicationContext, "Pozorovanie nenájdené.", Toast.LENGTH_SHORT).show()
+                            startActivity(intent2)
+                            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right) // backwards
+                            finish()
+                        }
+
+
+                    }
+
+                    override fun onFailure(call: Call<DeleteConfirm?>, t: Throwable) {
+                        TODO("Not yet implemented")
+                    }
+                })
+
 
         }
 

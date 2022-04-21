@@ -2,8 +2,11 @@ package com.example.bp_frontend.backendEndpoints
 
 import com.example.bp_frontend.dataItems.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.http.*
+
 
 // -------------------------------------------------------
 // Here goes the FIELDS and HEADERS that are meant to SEND
@@ -231,6 +234,26 @@ interface BackendApiService {
         @Part("observation_id") observation_id:Int
 
     ):Call<Comment>
+
+
+    //    ---------------------------------------------
+    //    Delete observation
+    //    ---------------------------------------------
+    @Multipart
+    @HTTP(method = "DELETE", path = "observation/delete/", hasBody = true)
+    fun deleteMyObservation(
+
+        @Header("Authorization") token: String,
+        @Part("obs_number") obs_number:Int
+
+    ):Call<DeleteConfirm>
+
+
+//    @HTTP(method = "DELETE", path = "remove/", hasBody = true)
+//    fun deleteObject(
+//        @Body `object`: RequestBody?
+//
+//    ): Call<ResponseBody?>?
 
 
 
