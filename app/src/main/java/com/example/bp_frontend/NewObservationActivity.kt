@@ -99,16 +99,17 @@ class NewObservationActivity : AppCompatActivity() {
 
         val dropdown_menu = findViewById(R.id.dropdown_menu) as AutoCompleteTextView
         dropdown_menu.isVisible = false
-//        dropdown_menu.inputType = 0
+
 
         val loading = findViewById<TextView>(R.id.loading)
         loading.isVisible = true
 
+//        if(!dropdown_menu.text.isEmpty())
         loadData(dropdown_menu, loading)
         setBirdList()
         onClickListeners()
 
-//        val button_next_step = findViewById<RelativeLayout>(R.id.button_next_step)
+
         val photo_button = findViewById<View>(R.id.photo_button)
         val location_button = findViewById<View>(R.id.get_location)
         val number = findViewById<TextInputEditText>(R.id.decimal)
@@ -562,6 +563,7 @@ class NewObservationActivity : AppCompatActivity() {
     }
 
     private fun loadData(dropdown_menu: AutoCompleteTextView, loading: TextView) {
+
         val retrofitBuilder = Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(BASE_URL)

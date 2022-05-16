@@ -56,6 +56,11 @@ class MapsActivity : AppCompatActivity() {
 
         graphs.setOnClickListener {
 
+            val intent = Intent(this@MapsActivity, GraphActivity::class.java)
+            intent.putExtra("bird_name", bird_name.toString())
+            intent.putExtra("year", Calendar.getInstance().get(Calendar.YEAR).toInt())
+            startActivity(intent)
+
         }
 
         if(showHeatmap == true)

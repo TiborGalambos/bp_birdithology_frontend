@@ -20,8 +20,6 @@
             android:id="@+id/photo_button"
             android:layout_width="343dp"
             android:layout_height="363dp"
-
-
             android:background="@drawable/welcome_bg1"
             android:elevation="20dp"
             app:layout_constraintBottom_toBottomOf="parent"

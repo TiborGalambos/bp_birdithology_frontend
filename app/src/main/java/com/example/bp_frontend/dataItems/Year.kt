@@ -38,6 +38,6 @@ data class Year(
     val nov: Int,
 
     @SerializedName("dec")
-    val dec: Int,
+    val dec: Int
 
 )

@@ -32,8 +32,6 @@
         app:titleTextColor="#111111"
         app:title=" "/>
 
-
-
     <TextView
         android:id="@+id/textView"
         style="@style/black_big_header"
@@ -114,7 +112,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.21" />
+        app:layout_constraintGuide_percent="0.17" />
 
     <TextView
         android:id="@+id/right_top_text"
@@ -129,36 +127,36 @@
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/search_Bar"
-        android:layout_width="341dp"
-        android:layout_height="50dp"
-        android:hint="Hľadať"
-        android:outlineAmbientShadowColor="@color/black"
-        android:scrollbarSize="40dp"
-        app:boxBackgroundColor="#FFF"
-        app:boxStrokeColor="#FFF"
-        app:boxStrokeWidth="0dp"
-        app:boxStrokeWidthFocused="0dp"
-        app:counterEnabled="false"
-        app:counterMaxLength="32"
-        app:counterOverflowTextColor="@color/teal_200"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
-        app:layout_constraintEnd_toStartOf="@+id/guideline8"
-        app:layout_constraintStart_toStartOf="@+id/guideline7"
-        app:layout_constraintTop_toTopOf="@+id/guideline3">
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/search_Bar"-->
+<!--        android:layout_width="341dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:hint="Hľadať"-->
+<!--        android:outlineAmbientShadowColor="@color/black"-->
+<!--        android:scrollbarSize="40dp"-->
+<!--        app:boxBackgroundColor="#FFF"-->
+<!--        app:boxStrokeColor="#FFF"-->
+<!--        app:boxStrokeWidth="0dp"-->
+<!--        app:boxStrokeWidthFocused="0dp"-->
+<!--        app:counterEnabled="false"-->
+<!--        app:counterMaxLength="32"-->
+<!--        app:counterOverflowTextColor="@color/teal_200"-->
+<!--        app:layout_constraintBottom_toTopOf="@+id/guideline2"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/guideline8"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/guideline7"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/guideline3">-->
 
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/search_bg"
-            android:outlineProvider="none">
+<!--        <com.google.android.material.textfield.TextInputEditText-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="@drawable/search_bg"-->
+<!--            android:outlineProvider="none">-->
 
-        </com.google.android.material.textfield.TextInputEditText>
+<!--        </com.google.android.material.textfield.TextInputEditText>-->
 
 
-    </com.google.android.material.textfield.TextInputLayout>
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
 
 

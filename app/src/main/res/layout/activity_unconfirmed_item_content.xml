@@ -325,6 +325,14 @@
 
     </ScrollView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:text="Zdroj údajov: eBird.org"
+        app:layout_constraintBottom_toTopOf="@+id/con1"
+        app:layout_constraintStart_toStartOf="@+id/guideline7" />
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/con1"
@@ -356,6 +364,8 @@
             tools:ignore="MissingConstraints">
 
         </TextView>
+
+
 
 
         <AutoCompleteTextView

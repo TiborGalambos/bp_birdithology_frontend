@@ -72,7 +72,7 @@ class GraphActivity : AppCompatActivity() {
         sessionManager = SessionManager(this)
 
         apiClient.getApiService(this).fetchObservationsForGraph(
-            bird_name = bird_name!!,
+            bird_name = bird_name!!.toString(),
             year = year!!,
             token = "Token ${sessionManager.getToken()}").enqueue(object : Callback<GraphDataItem?> {
             override fun onResponse(
